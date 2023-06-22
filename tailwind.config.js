@@ -8,6 +8,7 @@ export default {
     height: {
       460: "460px",
     },
+    mode: "jit",
     extend: {},
   },
   plugins: [],
