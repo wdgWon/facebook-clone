@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -54,6 +55,7 @@ THIRD_PARTY = [
 
 APPLICATION = [
     "accounts",
+    "profiles",
 ]
 
 INSTALLED_APPS += THIRD_PARTY + APPLICATION
@@ -82,6 +84,11 @@ REST_AUTH = {
     "USER_DETAILS_SERIALIZER": "accounts.serializers.UserDetailSerializer",
 }
 
+REST_AUTH_SERIALIZERS = {
+    "PASSWORD_RESET_SERIALIZER": "dj_rest_auth.serializers.PasswordResetSerializer",
+    "PASSWORD_RESET_CONFIRM_SERIALIZER": "dj_rest_auth.serializers.PasswordResetConfirmSerializer",
+}
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
@@ -97,6 +104,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -175,6 +185,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
