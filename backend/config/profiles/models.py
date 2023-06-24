@@ -33,6 +33,12 @@ class UserProfile(models.Model):
         verbose_name = "프로필"
         verbose_name_plural = "프로필"
 
+    def requests_sent(self):
+        return self.profile_user.requests_sent.all()
+
+    def requests_received(self):
+        return self.profile_user.requests_received.all()
+
 
 class FriendRequest(models.Model):
     sender = models.ForeignKey(
