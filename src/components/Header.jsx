@@ -1,26 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import profile_img5 from "../img/profile_img5.png";
 
-const Header = ({ type }) => {
-  const navigate = useNavigate();
-  const onClickHome = () => {
-    navigate("/");
-  };
-  const onClickAbout = () => {
-    navigate("/about");
-  };
-  const onClickFriends = () => {
-    navigate("/friends");
-  };
-  const onClickPhotos = () => {
-    navigate("/photos");
-  };
-  const onClickVideos = () => {
-    navigate("/videos");
-  };
-  const onClickMap = () => {
-    navigate("/map");
-  };
+const Header = () => {
+  const location = useLocation();
+
   return (
     <div
       className="
@@ -204,120 +187,108 @@ const Header = ({ type }) => {
           w-[1136px] 
           h-[40px] 
           flex
+          items-center
           "
           >
-            <span
-              className="
-              flex items-center justify-center 
-              px-[10px] 
-              cursor-pointer
-              text-blue-600
-              font-bold
-              underline
-              underline-offset-[20px]
-              decoration-2
-              
-             "
-              onClick={onClickHome}
-            >
-              게시물
-            </span>
-            <span
+            <div
               className="
               flex 
               items-center 
-              justify-center 
-              px-[10px]
-            bg-white 
-              rounded-md 
-              top-80 
-              right-11 
-              hover:brightness-[92%]
+              justify-between
+              w-[560px]
               cursor-pointer
               "
-              onClick={onClickAbout}
             >
-              정보
-            </span>
-            <span
-              className="
-              flex 
-              items-center 
-              justify-center 
-              px-[10px]
-            bg-white 
-              rounded-md 
-              top-80 
-              right-11 
-              hover:brightness-[92%] 
-              cursor-pointer"
-              onClick={onClickFriends}
-            >
-              친구
-            </span>
-            <span
-              className="
-              flex 
-              items-center 
-              justify-center 
-              px-[10px]
-            bg-white 
-              rounded-md 
-              top-80 
-              right-11 
-              hover:brightness-[92%] 
-              cursor-pointer"
-              onClick={onClickPhotos}
-            >
-              사진
-            </span>
-            <span
-              className="
-              flex 
-              items-center 
-              justify-center 
-              px-[10px]
-            bg-white 
-              rounded-md 
-              top-80 
-              right-11 
-              hover:brightness-[92%] 
-              cursor-pointer"
-              onClick={onClickVideos}
-            >
-              동영상
-            </span>
-            <span
-              className="
-              flex 
-              items-center 
-              justify-center 
-              px-[10px]
-            bg-white 
-              rounded-md 
-              top-80 
-              right-11 
-              hover:brightness-[92%] 
-              cursor-pointer"
-              onClick={onClickMap}
-            >
-              체크인
-            </span>
-            <span
-              className="flex 
-              items-center 
-              justify-center 
-              px-[10px]
-            bg-white 
-              rounded-md 
-              top-80 
-              right-11 
-              hover:brightness-[92%] 
-              cursor-pointer"
-            >
-              더보기▼
-            </span>
+              <Link to="/">
+                <span
+                  className={
+                    "pofile" +
+                    (location.pathname === "/"
+                      ? "cursor-pointer text-blue-600 font-bold underline underline-offset-[20px] decoration-2"
+                      : "bg-white rounded-md top-80 right-11 hover:brightness-[92%] cursor-pointer")
+                  }
+                >
+                  게시물
+                </span>
+              </Link>
+              <Link to="/about">
+                <span
+                  className={
+                    "pofile" +
+                    (location.pathname === "/about"
+                      ? "cursor-pointer text-blue-600 font-bold underline underline-offset-[20px] decoration-2"
+                      : "bg-white rounded-md top-80 right-11 hover:brightness-[92%]cursor-pointer")
+                  }
+                >
+                  정보
+                </span>
+              </Link>
+              <Link to="/friends">
+                <span
+                  className={
+                    "pofile" +
+                    (location.pathname === "/friends"
+                      ? "cursor-pointer text-blue-600 font-bold underline underline-offset-[20px] decoration-2"
+                      : "bg-neutral-300 rounded-md top-80 right-11 hover:brightness-[92%] cursor-pointer")
+                  }
+                >
+                  친구
+                </span>
+              </Link>
+              <Link to="/photos">
+                <span
+                  className={
+                    "pofile" +
+                    (location.pathname === "/photos"
+                      ? "cursor-pointer text-blue-600 font-bold underline underline-offset-[20px] decoration-2"
+                      : "bg-white rounded-md top-80 right-11 hover:brightness-[92%]cursor-pointer")
+                  }
+                >
+                  사진
+                </span>
+              </Link>
+              <Link to="/videos">
+                <span
+                  className={
+                    "pofile" +
+                    (location.pathname === "/videos"
+                      ? "cursor-pointer text-blue-600 font-bold underline underline-offset-[20px] decoration-2"
+                      : "bg-white rounded-md top-80 right-11 hover:brightness-[92%]cursor-pointer")
+                  }
+                >
+                  동영상
+                </span>
+              </Link>
+              <Link to="/map">
+                <span
+                  className={
+                    "pofile" +
+                    (location.pathname === "/map"
+                      ? "cursor-pointer text-blue-600 font-bold underline underline-offset-[20px] decoration-2"
+                      : "bg-white rounded-md top-80 right-11 hover:brightness-[92%]cursor-pointer")
+                  }
+                >
+                  체크인
+                </span>
+              </Link>
+              <div
+                className="
+          w-[70px] 
+          h-[40px] 
+          bg-white
+          rounded-md 
+          hover:brightness-[92%] 
+          flex 
+          justify-center 
+          items-center
+          cursor-pointer
+          "
+              >
+                더보기▼
+              </div>
+            </div>
           </div>
+
           <div
             className="
           w-[40px] 
