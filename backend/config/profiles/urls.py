@@ -6,7 +6,7 @@ from .views import FriendViewSet, ProfileViewSet
 
 router = routers.DefaultRouter()
 router.register("friends", FriendViewSet)
-router.register("profiles", ProfileViewSet)
+router.register("mypage", ProfileViewSet)
 
 
 urlpatterns = [
