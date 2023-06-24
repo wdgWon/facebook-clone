@@ -1,21 +1,32 @@
 from accounts.models import CustomUser
 from .models import UserProfile, FriendRequest
 from rest_framework import serializers
-from accounts.serializers import UserDetailSerializer
 
 
-class UserProfile(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserProfile
-        fields = "__all__"
+        model = CustomUser
+        fields = ["name"]
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    profile = UserProfile()
+    profile_user_name = serializers.StringRelatedField(
+        source="profile_user.name", read_only=True
+    )
 
     class Meta:
-        model = CustomUser
-        fields = ["name", "profile"]
+        model = UserProfile
+        fields = [
+            "profile_user_name",
+            "myself",
+            "mobile_phone",
+            "company",
+            "education",
+            "residence",
+            "birth_place",
+            "friends",
+            "profile_image",
+        ]
 
 
 class FriendSerializer(serializers.ModelSerializer):

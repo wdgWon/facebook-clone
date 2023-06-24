@@ -20,7 +20,7 @@ class UserProfile(models.Model):
     mobile_phone = models.CharField(
         max_length=32,
         help_text="연락처",
-        validators=[RegexValidator(regex=r"\d{2,3}-\d{3,4}-d{4}")],
+        validators=[RegexValidator(regex=r"\d{2,3}-\d{3,4}-\d{4}")],
     )
     company = models.CharField(max_length=100, help_text="직장")
     education = models.CharField(max_length=50, help_text="학력")
@@ -28,6 +28,10 @@ class UserProfile(models.Model):
     birth_place = models.CharField(max_length=255, help_text="출생지")
     friends = models.ManyToManyField("self", blank=True)
     profile_image = models.ImageField(blank=True, null=True, upload_to="uploads")
+
+    class Meta:
+        verbose_name = "프로필"
+        verbose_name_plural = "프로필"
 
 
 class FriendRequest(models.Model):
@@ -45,3 +49,7 @@ class FriendRequest(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True, help_text="친구 요청 발생 시간")
     is_accepted = models.BooleanField(default=False, help_text="친구 요청 수락 여부")
+
+    class Meta:
+        verbose_name = "친구 요청"
+        verbose_name_plural = "친구 요청"

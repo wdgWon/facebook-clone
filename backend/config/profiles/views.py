@@ -26,3 +26,7 @@ class FriendViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
+
+    def perform_create(self, serializer):
+        # 인증된 사용자의 CustomUser 인스턴스를 사용하여 UserProfile을 저장합니다.
+        serializer.save(profile_user=self.request.user)
