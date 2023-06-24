@@ -32,6 +32,8 @@
 ### API 명세서
 |요청|url|설명|
 |:---:|:---:|:---:|
-|GET|http://127.0.0.1:8000/api/login/|로그인|
-|GET|http://127.0.0.1:8000/api/logout/|로그아웃|
-|GET|http://127.0.0.1:8000/api/register/|회원가입|
+|POST|http://127.0.0.1:8000/api/login/|로그인|
+|POST|http://127.0.0.1:8000/api/logout/|로그아웃|
+|POST|http://127.0.0.1:8000/api/register/|회원가입|
+|GET|http://127.0.0.1:8000/api/profiles/mypage/|마이 페이지|
+|PUT|http://127.0.0.1:8000/api/profiles/mypage/|마이페이지 내용 수정|
