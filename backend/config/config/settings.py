@@ -51,6 +51,7 @@ THIRD_PARTY = [
     "dj_rest_auth.registration",
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
 ]
 
 APPLICATION = [

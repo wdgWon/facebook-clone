@@ -26,18 +26,15 @@ class UserProfile(models.Model):
     education = models.CharField(max_length=50, help_text="학력")
     residence = models.CharField(max_length=255, help_text="거주지")
     birth_place = models.CharField(max_length=255, help_text="출생지")
-    friends = models.ManyToManyField("self", blank=True)
-    profile_image = models.ImageField(blank=True, null=True, upload_to="uploads")
+    friends = models.ManyToManyField("self", blank=True, help_text="친구 목록")
+    friend_request = models.BooleanField(default=False, help_text="친구 요청")
+    profile_image = models.ImageField(
+        blank=True, null=True, upload_to="uploads", help_text="프로필 사진"
+    )
 
     class Meta:
         verbose_name = "프로필"
         verbose_name_plural = "프로필"
-
-    def requests_sent(self):
-        return self.profile_user.requests_sent.all()
-
-    def requests_received(self):
-        return self.profile_user.requests_received.all()
 
 
 class FriendRequest(models.Model):

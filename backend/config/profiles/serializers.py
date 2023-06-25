@@ -4,13 +4,17 @@ from rest_framework import serializers
 
 
 class FriendSerializer(serializers.ModelSerializer):
-    receiver_name = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    receiver_name = serializers.StringRelatedField(
+        source="receiver.name", read_only=True
+    )
+    sender_name = serializers.StringRelatedField(source="sender.name", read_only=True)
     when_request = serializers.SerializerMethodField()
 
     class Meta:
         model = FriendRequest
         fields = [
             "id",
+            "sender_name",
             "receiver_name",
             "is_accepted",
             "when_request",
@@ -38,12 +42,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
     profile_user_name = serializers.StringRelatedField(
         source="profile_user.name", read_only=True
     )
-    friend_requests_sent = FriendSerializer(
-        many=True, read_only=True, source="profile_user.requests_sent"
-    )
-    friend_requests_received = FriendSerializer(
-        many=True, read_only=True, source="profile_user.requests_received"
-    )
+    # friends = UserNameSerializer(many=True, read_only=True)
+    friends = serializers.SerializerMethodField()
 
     class Meta:
         model = UserProfile
@@ -55,8 +55,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "education",
             "residence",
             "birth_place",
-            "friends",
             "profile_image",
-            "friend_requests_sent",
-            "friend_requests_received",
+            "friends",
+            "friend_request",
         ]
+
+    def get_friends(self, obj):
+        """친구 목록 딕셔너리 형태에서 리스트 형태로 언패킹"""
+        friends_list = [friend.profile_user.name for friend in obj.friends.all()]
+        return friends_list
