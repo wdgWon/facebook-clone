@@ -24,4 +24,6 @@ dist-ssr
 *.sw?
 
 src/App.jsx
-src/ProfileSection.jsx
+package.json
+package-lock.json
+src/main.jsx
