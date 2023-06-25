@@ -23,5 +23,12 @@ dist-ssr
 *.sln
 *.sw?
 
+
 # account
 find_account
+package-lock.json
+package.json
+store/
+
+App.jsx
+vite.config.js
