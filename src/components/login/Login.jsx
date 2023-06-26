@@ -5,7 +5,6 @@ import api from "../../config/api.json";
 
 export default function Login() {
    const [formData, setFormData] = useState({
-      username: null,
       email: "",
       password: "",
    });
@@ -21,20 +20,16 @@ export default function Login() {
    // 로그인 비동기 함수
    async function apiRequestLogin() {
       let res;
-      // let body = {
-      //    email : formData.email,
-      //    password : formData.password,
-      // }
 
       try {
-         res = await axios.post(api.LOGIN_URL);
+         res = await axios.post(api.LOGIN_URL, formData);
          console.log(JSON.stringify(res));
       } catch (err) {
          console.log(err);
       }
       // 테스트용 response 알람창 띄우기
       alert(JSON.stringify(res.data));
-   }
+   };
 
    // 로그인 정보 api 요청
    const handleSubmit = (event) => {

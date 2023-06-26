@@ -29,6 +29,4 @@ find_account
 package-lock.json
 package.json
 store/
-
-App.jsx
-vite.config.js
+api-components-list.jsx
