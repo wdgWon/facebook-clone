@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import profile_img5 from "./img/profile_img5.png";
+import Modal from "./components/Modal";
+
 const ProfileSection = () => {
   const [isEdit, setIsEdit] = useState(false);
   const toggleMenu = () => setIsEdit(!isEdit);
@@ -221,6 +223,7 @@ const ProfileSection = () => {
           </div>
         </div>
       </section>
+      <Modal />
     </div>
   );
 };

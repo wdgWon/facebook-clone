@@ -5,14 +5,7 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <div
-      className="
-    ProfileSectio 
-    max-w-7xl 
-    my-0 
-    mx-auto
-    "
-    >
+    <div className="ProfileSectio max-w-7xl my-0 mx-auto">
       <section
         className="
       w-full h-460
@@ -60,40 +53,11 @@ const Header = () => {
           </button>
         </div>
       </section>
-      <section
-        className="
-      w-[1186px] 
-      h-[146px] 
-      relative 
-      flex 
-      justify-betwee 
-      my-0 mx-auto
-      "
-      >
-        <div
-          className="
-        flex 
-        relative 
-        w-[175px]
-        "
-        >
-          <div
-            className="
-          absolute 
-          top-[-20px] 
-          w-[168px] 
-          h-[168px] 
-          rounded-full 
-          border-4 
-          border-white  
-          "
-          >
+      <section className="w-[1186px] h-[146px] relative flex justify-betwee my-0 mx-auto">
+        <div className="flex relative w-[175px]">
+          <div className="absolute top-[-20px] w-[168px] h-[168px] rounded-full border-4 border-white  ">
             <img
-              className="
-              rounded-full  
-              cursor-pointer
-              hover:brightness-[90%]
-              "
+              className=" rounded-full   cursor-pointer hover:brightness-[90%] "
               alt="profile"
               src={profile_img5}
             />
@@ -166,14 +130,7 @@ const Header = () => {
       my-0 mx-auto
       "
       >
-        <hr
-          className="
-        w-full 
-        border-t-[1px] 
-        border-slate-500 
-        mt-3.5
-        "
-        />
+        <hr className="w-full border-t-[1px] border-slate-500 mt-3.5" />
         <div
           className="
         flex 

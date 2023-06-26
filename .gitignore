@@ -27,3 +27,4 @@ src/App.jsx
 package.json
 package-lock.json
 src/main.jsx
+src/commponent/profile/Modal.jsx
