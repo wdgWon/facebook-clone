@@ -3,17 +3,14 @@ import Header from "./header";
 // bg-slate-400
 const MainPage = () => {
     return (
-        <div className="container">
+        <div>
             <Header />
-            <div className="flex">
-                <div className="flex-1 h-16">01</div>
-                <div className="shrink-0 w-64 h-14">
-                    <iframe
-                        className="aspect-video hover:aspect-square"
-                        src="https://tv.naver.com/embed/20582616?autoPlay=true"
-                    ></iframe>
+            <div className="flex flex-col min-w-screen min-h-screen py-4 justify-center bg-gray-200">
+                <div className="grid grid-cols-3 gap-4">
+                    <div className="bg-gray-300 p-4">첫 번째 열</div>
+                    <div className="bg-gray-300 p-4">두 번째 열(content 컴포넌트 들어갈 자리)</div>
+                    <div className="bg-gray-300 p-4">세 번째 열</div>
                 </div>
-                <div className="flex-1 h-16">03</div>
             </div>
         </div>
     );
