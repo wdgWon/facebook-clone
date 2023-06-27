@@ -7,42 +7,41 @@ import Modals from "./promodals";
 const Header = () => {
     return (
         <header className="flex h-[56px]">
-            <div className="flex item-center">
+            <div className="flex flex-just item-center">
                 <img className="w-[50px]" src={fblogo} alt="페이스북로고" />
                 <SearchBar />
             </div>
             {/*네비바*/}
-            <div>
-                <Link to="/" className="">
+            <div className="">
+                <a href="/" className="hover:bg-gray-200">
                     홈
-                </Link>
-                <Link to="/watch" className="">
+                </a>
+                <a href="/watch" className="hover:bg-gray-200">
                     워치
-                </Link>
-                <Link to="/group" className="">
+                </a>
+                <a href="/" className="hover:bg-gray-200">
                     그룹
-                </Link>
-                <Link to="/game" className="">
+                </a>
+                <a href="/" className="hover:bg-gray-200">
                     게임
-                </Link>
-      
+                </a>
             </div>
 
-            <div>
-           
-                <Link to="/" className="">
+            <div className="">
+                <a href="" className="hover:bg-gray-200">
                     +
-                </Link>
-                <Link to="/" className="">
+                </a>
+                <a href="" className="hover:bg-gray-200">
                     메세지
-                </Link>
-                <Link to="/" className="">
+                </a>
+                <a href="" className="hover:bg-gray-200">
                     알람
-                </Link>
-                {/*프로필창모달*/}
-                <Modals />
-               
+                </a>
             </div>
+            {/*프로필창모달을 하고싶다..*/}
+            <a href="/profiles" className="hover:bg-gray-200">
+                프로필
+            </a>
         </header>
     );
 };

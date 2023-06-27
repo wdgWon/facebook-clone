@@ -8,11 +8,11 @@ export default function App() {
    return (
       <>
          {/* <Login /> */}
-         <BrowserRouter>
+         {/* <BrowserRouter>
          <Routes>
-            <Route path="/" element={<MainPage/>} />
+            
          </Routes>
-         </BrowserRouter>
+         </BrowserRouter> */}
          <MainPage />
 
       </>
