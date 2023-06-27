@@ -22,7 +22,7 @@ class FriendViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(messages, many=True)
         return Response(serializer.data)
 
-    @action(detail=True, methods=["post"], url_path="accept-friend-request")
+    @action(detail=True, methods=["get"], url_path="accept-friend-request")
     def accept_friend_request(self, request, *args, **kwargs):
         """친구 요청 수락 한 경우"""
         friend_request_id = kwargs["pk"]
@@ -79,7 +79,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
         obj = get_object_or_404(queryset, profile_user_id=custom_user_id)
         return obj
 
-    @action(detail=True, methods=["post"], url_path="friend_request")
+    @action(detail=True, methods=["get"], url_path="friend_request")
     def send_friend_request_action(self, request, pk=None):
         """친구 요청 액션"""
         return self.send_friend_request()
@@ -97,6 +97,9 @@ class ProfileViewSet(viewsets.ModelViewSet):
             and not FriendRequest.objects.filter(
                 sender=sender, receiver=receiver, is_accepted=True
             ).exists()
+            and not FriendRequest.objects.filter(
+                sender=receiver, receiver=sender, is_accepted=True
+            ).exists()
         ):
             friend_request = FriendRequest(sender=sender, receiver=receiver)
             friend_request.save()
@@ -107,3 +110,4 @@ class ProfileViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_201_CREATED)
 
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
