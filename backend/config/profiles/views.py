@@ -34,22 +34,26 @@ class FriendViewSet(viewsets.ModelViewSet):
         friend_request = get_object_or_404(
             FriendRequest, id=friend_request_id, receiver=request.user
         )
+        print(friend_request.is_accepted)
+        if not friend_request.is_accepted:
+            # 친구 요청을 수락하고 is_accepted 를 True로 변경
+            friend_request.is_accepted = True
+            friend_request.save()
 
-        # 친구 요청을 수락하고 is_accepted 를 True로 변경
-        friend_request.is_accepted = True
-        friend_request.save()
+            # UserProfile의 friends에 서로 추가
+            sender_profile = UserProfile.objects.get(profile_user=friend_request.sender)
+            receiver_profile = UserProfile.objects.get(
+                profile_user=friend_request.receiver
+            )
 
-        # UserProfile의 friends에 서로 추가
-        sender_profile = UserProfile.objects.get(profile_user=friend_request.sender)
-        receiver_profile = UserProfile.objects.get(profile_user=friend_request.receiver)
+            sender_profile.friends.add(receiver_profile)
+            receiver_profile.friends.add(sender_profile)
 
-        sender_profile.friends.add(receiver_profile)
-        receiver_profile.friends.add(sender_profile)
+            sender_profile.save()
+            receiver_profile.save()
 
-        sender_profile.save()
-        receiver_profile.save()
-
-        return Response(status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
@@ -101,6 +105,9 @@ class ProfileViewSet(viewsets.ModelViewSet):
             receiver != sender
             and not FriendRequest.objects.filter(
                 sender=sender, receiver=receiver, is_accepted=True
+            ).exists()
+            and not FriendRequest.objects.filter(
+                sender=receiver, receiver=sender, is_accepted=False
             ).exists()
             and not FriendRequest.objects.filter(
                 sender=receiver, receiver=sender, is_accepted=True
