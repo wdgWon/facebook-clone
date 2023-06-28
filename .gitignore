@@ -26,7 +26,13 @@ dist-ssr
 
 # account
 find_account
+
+# package ignore
 package-lock.json
 package.json
-store/
+
+# api list
 api-components-list.jsx
+
+# for different app render
+App.jsx
