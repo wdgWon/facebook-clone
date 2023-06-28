@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import profile_img5 from "./img/profile_img5.png";
+import Modal from "./components/profile/Modal";
+
 const ProfileSection = () => {
   const [isEdit, setIsEdit] = useState(false);
   const toggleMenu = () => setIsEdit(!isEdit);
@@ -41,10 +43,19 @@ const ProfileSection = () => {
     }
   }
 
+  const [modal, setModal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className=" h-full bg-neutral-200 ">
+    <div
+      className=" h-full bg-neutral-200 "
+      onClick={() => {
+        setIsOpen(true);
+      }}
+    >
+      {modal === true ? <Modal setModal={setModal} /> : null}
       <section className="w-[1186px] h-full mt-[7px] my-0 mx-auto pt-[20px] flex justify-between">
-        <div className="w-[490px] rounded-md ml-[20px] ">
+        <div className="w-[490px] rounded-md  ">
           <div className="w-full h-[430px] pt-[15px] bg-white rounded-md flex flex-col justify-center pl-[15px] mb-[20px]">
             <span className="text-xl font-bold">소개</span>
             <div className="content">
@@ -95,7 +106,13 @@ const ProfileSection = () => {
             )}
 
             <div className="w-[458px] h-[36px] border-t-[1px] bg-neutral-300 mt-[15px] rounded-md flex justify-center items-center cursor-pointer">
-              상세 정보 수정
+              <button
+                onClick={() => {
+                  setModal(true);
+                }}
+              >
+                상세 정보 추가
+              </button>
             </div>
             <div
               className="
