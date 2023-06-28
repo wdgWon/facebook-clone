@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Signup from "../signup/Signup";
-import axios from "axios";
-import api from "../../config/api.json";
+import { useStore } from "../../store/store";
+import { USER_LOGIN } from "../../store/type.json";
 
 export default function Login() {
+   const dispatch = useStore()[1];
    const [formData, setFormData] = useState({
       email: "",
       password: "",
@@ -17,25 +18,11 @@ export default function Login() {
       setIsModal(true);
    };
 
-   // 로그인 비동기 함수
-   async function apiRequestLogin() {
-      let res;
-
-      try {
-         res = await axios.post(api.LOGIN_URL, formData);
-         console.log(JSON.stringify(res));
-      } catch (err) {
-         console.log(err);
-      }
-      // 테스트용 response 알람창 띄우기
-      alert(JSON.stringify(res.data));
-   };
-
    // 로그인 정보 api 요청
    const handleSubmit = (event) => {
       event.preventDefault();
 
-      apiRequestLogin();
+      dispatch(USER_LOGIN, formData);
 
       console.log(JSON.stringify(formData));
    };
