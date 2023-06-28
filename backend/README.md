@@ -36,4 +36,7 @@
 |POST|http://127.0.0.1:8000/api/logout/|로그아웃|
 |POST|http://127.0.0.1:8000/api/register/|회원가입|
 |GET|http://127.0.0.1:8000/api/profiles/mypage/|마이 페이지|
-|PUT|http://127.0.0.1:8000/api/profiles/mypage/|마이페이지 내용 수정|
+|PUT|http://127.0.0.1:8000/api/profiles/|마이페이지 내용 수정|
+|GET|http://127.0.0.1:8000/api/post/|게시글 목록|
+|GET|http://127.0.0.1:8000/api/post/1/|게시글 상세 페이지|
+|PUT|http://127.0.0.1:8000/api/post/1/like/|좋아요|
