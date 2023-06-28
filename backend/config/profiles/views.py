@@ -1,10 +1,15 @@
 from rest_framework.response import Response
 from accounts.models import CustomUser
 from .models import UserProfile, FriendRequest
-from .serializers import FriendSerializer, UserProfileSerializer
+from .serializers import (
+    FriendSerializer,
+    UserProfileSerializer,
+    UserProfileSearchSerializer,
+)
 from rest_framework import viewsets, status
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
+from rest_framework.filters import SearchFilter
 
 
 class FriendViewSet(viewsets.ModelViewSet):
@@ -111,3 +116,10 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
+class SearchViewSet(viewsets.ReadOnlyModelViewSet):
+    model = UserProfile
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSearchSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ["profile_user__name"]

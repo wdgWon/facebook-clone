@@ -1,10 +1,8 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .serializers import PostCreateSerializer, PostSerializer, PostRetrieveSerializer
+from .serializers import PostCreateSerializer, PostSerializer
 from .models import Post
-from profiles.models import UserProfile
-from accounts.models import CustomUser
 
 
 class PostViewSets(viewsets.ModelViewSet):
@@ -39,8 +37,5 @@ class PostViewSets(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action in ("create", "update"):
             return PostCreateSerializer
-
-        if self.action == "retrieve":
-            return PostRetrieveSerializer
 
         return PostSerializer
