@@ -64,3 +64,21 @@ class UserProfileSerializer(serializers.ModelSerializer):
         """친구 목록 딕셔너리 형태에서 리스트 형태로 언패킹"""
         friends_list = [friend.profile_user.name for friend in obj.friends.all()]
         return friends_list
+
+
+class UserProfileSearchSerializer(serializers.ModelSerializer):
+    profile_user_id = serializers.PrimaryKeyRelatedField(
+        source="profile_user.id", read_only=True
+    )
+    profile_user_name = serializers.StringRelatedField(
+        source="profile_user.name", read_only=True
+    )
+    # is_friend = serializers.SerializerMethodField()
+
+    class Meta:
+        model = UserProfile
+        fields = [
+            "profile_user_id",
+            "profile_user_name",
+            "profile_image",
+        ]
