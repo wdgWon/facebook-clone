@@ -17,6 +17,10 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, help_text="생성 일자")
     updated_at = models.DateTimeField(auto_now=True, help_text="수정 일자")
 
+    @property
+    def reply_list(self):
+        return self.reply_set.all()
+
     class Meta:
         db_table = "post"
         ordering = ["-created_at"]

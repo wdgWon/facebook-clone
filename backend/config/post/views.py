@@ -9,6 +9,14 @@ class PostViewSets(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        commentList = instance.reply_set.all()
+
+        serializer = self.get_serializer(instance)
+
+        return Response(serializer.data)
+
     @action(detail=True, methods=["patch"], name="like")
     def like(self, request, pk=None):
         """게시물 좋아요 버튼 클릭 했을 때 액션"""

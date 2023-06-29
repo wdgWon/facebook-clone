@@ -58,6 +58,7 @@ APPLICATION = [
     "accounts",
     "profiles",
     "post",
+    "reply",
 ]
 
 INSTALLED_APPS += THIRD_PARTY + APPLICATION

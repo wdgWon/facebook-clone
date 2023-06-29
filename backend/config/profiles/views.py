@@ -10,6 +10,7 @@ from rest_framework import viewsets, status
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter
+from rest_framework.generics import RetrieveUpdateAPIView
 
 
 class FriendViewSet(viewsets.ModelViewSet):
@@ -88,6 +89,10 @@ class ProfileViewSet(viewsets.ModelViewSet):
         obj = get_object_or_404(queryset, profile_user_id=custom_user_id)
         return obj
 
+    @action(detail=True, methods=["get"], url_path="mypage")
+    def my_page_view(self, request, pk=None):
+        user_id = request.user.id
+
     @action(detail=True, methods=["get"], url_path="friend_request")
     def send_friend_request_action(self, request, pk=None):
         """친구 요청 액션"""
@@ -122,6 +127,19 @@ class ProfileViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_201_CREATED)
 
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class MyPageView(RetrieveUpdateAPIView):
+    model = UserProfile
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        user_id = self.request.user.id
+        obj = get_object_or_404(queryset, profile_user_id=user_id)
+
+        return obj
 
 
 class SearchViewSet(viewsets.ReadOnlyModelViewSet):
