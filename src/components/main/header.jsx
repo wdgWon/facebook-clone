@@ -4,6 +4,8 @@ import SearchBar from "./searchbars";
 import { NavLink, Link } from "react-router-dom";
 import Modals from "./promodals";
 
+// 임시로 a링크로 해둠
+
 const Header = () => {
     return (
         <header className="flex h-[56px]">
