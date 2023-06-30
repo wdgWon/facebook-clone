@@ -10,9 +10,12 @@ from rest_framework import viewsets, status
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter
+from rest_framework.generics import RetrieveUpdateAPIView
 
 
 class FriendViewSet(viewsets.ModelViewSet):
+    """친구 요청 및  목록"""
+
     queryset = FriendRequest.objects.all()
     serializer_class = FriendSerializer
 
@@ -100,7 +103,6 @@ class ProfileViewSet(viewsets.ModelViewSet):
         pk = self.kwargs["pk"]
         receiver = get_object_or_404(CustomUser, id=pk)
 
-        # 조건 검사 분기 - 1. 친구 요청을 받는 사람이 자기 자신이 아닐 경우, 2. 이미 친구 요청을 보낸 경우
         if (
             receiver != sender
             and not FriendRequest.objects.filter(
@@ -124,7 +126,24 @@ class ProfileViewSet(viewsets.ModelViewSet):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+class MyPageView(RetrieveUpdateAPIView):
+    """마이 페이지 접근"""
+
+    model = UserProfile
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        user_id = self.request.user.id
+        obj = get_object_or_404(queryset, profile_user_id=user_id)
+
+        return obj
+
+
 class SearchViewSet(viewsets.ReadOnlyModelViewSet):
+    """유저 프로필 검색 기능"""
+
     model = UserProfile
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSearchSerializer
