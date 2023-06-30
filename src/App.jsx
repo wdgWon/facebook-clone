@@ -8,25 +8,23 @@ import Videos from "./components/profile/Videos";
 import Map from "./components/profile/Map";
 import Header from "./components/profile/Header";
 import Login from "./components/login/Login";
+import MainPage from "./components/main/MainPage";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 setActions();
 
 export default function App() {
-  return (
-    <>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="login" element={<Login />} />
-          <Route path="/" element={<ProfileSection />} />
-          <Route path="about" element={<About />} />
-          <Route path="/about/:aboutParam" element={<About />} />
-          <Route path="friends" element={<Friends />} />
-          <Route path="photos" element={<Photos />} />
-          <Route path="videos" element={<Videos />} />
-          <Route path="map" element={<Map />} />
-        </Routes>
-      </BrowserRouter>
-    </>
-  );
+
+   return (
+      <>
+         {/* <Login /> */}
+         {/* <BrowserRouter>
+         <Routes>
+            
+         </Routes>
+         </BrowserRouter> */}
+         <MainPage />
+
+      </>
+   );
 }
