@@ -14,6 +14,8 @@ from rest_framework.generics import RetrieveUpdateAPIView
 
 
 class FriendViewSet(viewsets.ModelViewSet):
+    """친구 요청 및  목록"""
+
     queryset = FriendRequest.objects.all()
     serializer_class = FriendSerializer
 
@@ -89,10 +91,6 @@ class ProfileViewSet(viewsets.ModelViewSet):
         obj = get_object_or_404(queryset, profile_user_id=custom_user_id)
         return obj
 
-    @action(detail=True, methods=["get"], url_path="mypage")
-    def my_page_view(self, request, pk=None):
-        user_id = request.user.id
-
     @action(detail=True, methods=["get"], url_path="friend_request")
     def send_friend_request_action(self, request, pk=None):
         """친구 요청 액션"""
@@ -105,7 +103,6 @@ class ProfileViewSet(viewsets.ModelViewSet):
         pk = self.kwargs["pk"]
         receiver = get_object_or_404(CustomUser, id=pk)
 
-        # 조건 검사 분기 - 1. 친구 요청을 받는 사람이 자기 자신이 아닐 경우, 2. 이미 친구 요청을 보낸 경우
         if (
             receiver != sender
             and not FriendRequest.objects.filter(
@@ -130,6 +127,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
 
 class MyPageView(RetrieveUpdateAPIView):
+    """마이 페이지 접근"""
+
     model = UserProfile
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
@@ -143,6 +142,8 @@ class MyPageView(RetrieveUpdateAPIView):
 
 
 class SearchViewSet(viewsets.ReadOnlyModelViewSet):
+    """유저 프로필 검색 기능"""
+
     model = UserProfile
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSearchSerializer

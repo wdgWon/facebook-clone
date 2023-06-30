@@ -42,7 +42,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
     profile_user_name = serializers.StringRelatedField(
         source="profile_user.name", read_only=True
     )
-    # friends = UserNameSerializer(many=True, read_only=True)
     friends = serializers.SerializerMethodField()
 
     class Meta:

@@ -52,6 +52,7 @@ THIRD_PARTY = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "drf_spectacular",
 ]
 
 APPLICATION = [
@@ -74,6 +75,7 @@ REST_FRAMEWORK = {
         "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 REST_AUTH = {
@@ -196,3 +198,32 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+SPECTACULAR_SETTINGS = {
+    # General schema metadata. Refer to spec for valid inputs
+    # https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#openapi-object
+    "TITLE": "페이스북 클론코딩 API 문서",
+    "DESCRIPTION": "페이스북의 간단한 유저와 CRUD 기능을 API로 만든 문서 입니다.",
+    # Optional: MAY contain "name", "url", "email"
+    "CONTACT": {
+        "name": "이주환",
+        "url": "https://github.com/LeeJuHwan",
+        "email": "wnghksrkdlq@gmail.com",
+    },
+    # Swagger UI를 좀더 편리하게 사용하기위해 기본옵션들을 수정한 값들입니다.
+    "SWAGGER_UI_SETTINGS": {
+        # https://swagger.io/docs/open-source-tools/swagger-ui/usage/configuration/  <- 여기 들어가면 어떤 옵션들이 더 있는지 알수있습니다.
+        "dom_id": "#swagger-ui",  # required(default)
+        "layout": "BaseLayout",  # required(default)
+        "deepLinking": True,  # API를 클릭할때 마다 SwaggerUI의 url이 변경됩니다. (특정 API url 공유시 유용하기때문에 True설정을 사용합니다)
+        "persistAuthorization": True,  # True 이면 SwaggerUI상 Authorize에 입력된 정보가 새로고침을 하더라도 초기화되지 않습니다.
+        "displayOperationId": True,  # True이면 API의 urlId 값을 노출합니다. 대체로 DRF api name둘과 일치하기때문에 api를 찾을때 유용합니다.
+        "filter": True,  # True 이면 Swagger UI에서 'Filter by Tag' 검색이 가능합니다
+    },
+    # Optional: MUST contain "name", MAY contain URL
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,  # OAS3 Meta정보 API를 비노출 처리합니다.
+    # https://www.npmjs.com/package/swagger-ui-dist 해당 링크에서 최신버전을 확인후 취향에 따라 version을 수정해서 사용하세요.
+    "SWAGGER_UI_DIST": "//unpkg.com/swagger-ui-dist@5.1.0",  # Swagger UI 버전을 조절할수 있습니다.
+}
