@@ -1,59 +1,74 @@
-import axios from "axios";
+import { useStore } from "./store/store";
+import { PUT_PROFILE } from "./store/type.json";
+// import axios from "axios";
 import { useState } from "react";
 import profile_img5 from "./img/profile_img5.png";
 import Modal from "./components/profile/Modal";
+import HobbyModal from "../src/components/profile/HobbyModal";
 
 const ProfileSection = () => {
+  const dispatch = useStore()[1];
+
   const [isEdit, setIsEdit] = useState(false);
-  const toggleMenu = () => setIsEdit(!isEdit);
   const [content, setContent] = useState("");
+  const [previousContent, setPreviousContent] = useState("");
+
+  const toggleMenu = () => setIsEdit(!isEdit);
 
   const maxLength = 101;
   const onChange = (e) => {
     if (content.length < maxLength || /\b/.test(e.target.value.at(-1))) {
       setContent(e.target.value);
     }
-    console.log(content);
   };
 
   const onClick = () => {
     toggleMenu();
-    setContent("");
-  };
-  const onClickButton = () => {
-    setIsEdit(false);
     setContent(content);
-    getDate();
   };
-  const handleEdit = () => {
-    setIsEdit(false);
-    setContent("");
-  };
-  async function getDate() {
-    // let body = {
-    //   email: "same666@naver.com",
-    //   password: "asdf1234!",
-    // };
-
-    try {
-      const response = await axios.get(`/api/profiles/`);
-      console.log(JSON.stringify(response));
-    } catch (error) {
-      console.error(error);
+  const onClickAboutUpdate = async () => {
+    if (content === previousContent) {
+      setIsEdit(false);
     }
-  }
+    setPreviousContent(content);
+    try {
+      await dispatch(PUT_PROFILE, { about: content });
+    } catch (err) {
+      console.error(err); //dispatch문에서도 오류가 생길 수 있어서 써줌
+    }
+
+    setIsEdit(false);
+
+    // getDate();
+  };
+  const handleCloseEdit = () => {
+    setIsEdit(false);
+    setContent(previousContent);
+  };
+  // async function getDate() {
+  //   // let body = {
+  //   //   email: "same666@naver.com",
+  //   //   password: "asdf1234!",
+  //   // };
+
+  //   try {
+  //     const response = await axios.get(`/api/profiles/`);
+  //     console.log(JSON.stringify(response));
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   const [modal, setModal] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [hobbyModal, setHobbyModal] = useState(false);
 
   return (
-    <div
-      className=" h-full bg-neutral-200 "
-      onClick={() => {
-        setIsOpen(true);
-      }}
-    >
+    <div className=" h-full bg-neutral-200 ">
       {modal === true ? <Modal setModal={setModal} /> : null}
+      {hobbyModal === true ? (
+        <HobbyModal setHobbyModal={setHobbyModal} />
+      ) : null}
+
       <section className="w-[1186px] h-full mt-[7px] my-0 mx-auto pt-[20px] flex justify-between">
         <div className="w-[490px] rounded-md  ">
           <div className="w-full h-[430px] pt-[15px] bg-white rounded-md flex flex-col justify-center pl-[15px] mb-[20px]">
@@ -62,7 +77,7 @@ const ProfileSection = () => {
               {isEdit ? (
                 <>
                   <textarea
-                    className="w-[458px] h-[50px] border-t-[1px] bg-neutral-300 mt-[15px] rounded-md pt-[13px] text-center"
+                    className="w-[458px] h-[50px] outline-none border-blue-600 bg-neutral-300 mt-[15px] rounded-md pt-[13px] text-center hover:brightness-[92%]"
                     placeholder="회원님에 대해 소개해주세요"
                     name="content"
                     value={content}
@@ -83,13 +98,14 @@ const ProfileSection = () => {
                 <div className="flex justify-end mr-[15px]">
                   <button
                     className="w-[40px] h-[40px] bg-neutral-300 rounded-md  hover:brightness-[92%] mr-[5px]"
-                    onClick={handleEdit}
+                    onClick={handleCloseEdit}
                   >
                     취소
                   </button>
                   <button
                     className="w-[40px] h-[40px] bg-neutral-300 rounded-md hover:brightness-[92%]"
-                    onClick={onClickButton}
+                    onClick={onClickAboutUpdate}
+                    disabled={content === previousContent}
                   >
                     저장
                   </button>
@@ -117,6 +133,9 @@ const ProfileSection = () => {
             <div
               className="
               w-[458px] h-[36px] border-t-[1px] bg-neutral-300 mt-[15px] rounded-md flex justify-center items-center cursor-pointer"
+              onClick={() => {
+                setHobbyModal(true);
+              }}
             >
               취미 추가
             </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Modal = ({ setModal }) => {
   const [isFlip, setIsFlip] = useState(false);
@@ -45,9 +46,9 @@ const Modal = ({ setModal }) => {
                   <span className="font-bold">직장</span>
                   <div className="cursor-pointer mt-[10px]">
                     <i className="mr-[10px] cursor-pointer">➕</i>
-                    <span className="text-blue-600 hover:underline underline-offset-8">
-                      직장 추가
-                    </span>
+                    <button className="text-blue-600 hover:underline underline-offset-8">
+                      <Link to="/about">직장 추가</Link>
+                    </button>
                   </div>
                 </li>
                 <li className="mb-[30px]">
@@ -55,15 +56,15 @@ const Modal = ({ setModal }) => {
                   <div className="cursor-pointer mt-[10px]">
                     <div>
                       <i className="mr-[10px] cursor-pointer">➕</i>
-                      <span className=" text-blue-600 hover:underline underline-offset-8">
-                        고등학교 추가
-                      </span>
+                      <button className=" text-blue-600 hover:underline underline-offset-8">
+                        <Link to="/about">고등학교 추가</Link>
+                      </button>
                     </div>
                     <div className="mt-[10px]">
                       <i className="mr-[10px] cursor-pointer">➕</i>
-                      <span className=" text-blue-600 hover:underline underline-offset-8">
-                        대학교 추가
-                      </span>
+                      <button className=" text-blue-600 hover:underline underline-offset-8">
+                        <Link to="/about">대학교 추가</Link>
+                      </button>
                     </div>
                   </div>
                 </li>
@@ -85,7 +86,9 @@ const Modal = ({ setModal }) => {
                           </button>
                           <span>00 거주</span>
                         </div>
-                        <i>✏️</i>
+                        <button>
+                          <Link to="/about">✏️</Link>
+                        </button>
                       </li>
                     </ul>
                   </div>
@@ -108,7 +111,9 @@ const Modal = ({ setModal }) => {
                           </button>
                           <span>00 출신</span>
                         </div>
-                        <i>✏️</i>
+                        <button>
+                          <Link to="/about">✏️</Link>
+                        </button>
                       </li>
                     </ul>
                   </div>
@@ -118,9 +123,9 @@ const Modal = ({ setModal }) => {
                   <div className="cursor-pointer mt-[10px]">
                     <div>
                       <i className="mr-[10px] cursor-pointer">➕</i>
-                      <span className=" text-blue-600 hover:underline underline-offset-8">
-                        결혼/연애 상태 추가
-                      </span>
+                      <button className=" text-blue-600 hover:underline underline-offset-8">
+                        <Link to="/about">결혼/연애 추가</Link>
+                      </button>
                     </div>
                   </div>
                 </li>
@@ -142,7 +147,9 @@ const Modal = ({ setModal }) => {
                           </button>
                           <span>0000년 0월에 가입</span>
                         </div>
-                        <i>✏️</i>
+                        <button>
+                          <Link to="/about">✏️</Link>
+                        </button>
                       </li>
                     </ul>
                   </div>

@@ -2,6 +2,24 @@ import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
 
 const About = () => {
+  // 개요 : 직장 추가 상태 관리
+  const [isEdit, setIsEdit] = useState(false);
+  const [content, setContent] = useState("");
+
+  const toggleMenu = () => setIsEdit(!isEdit);
+
+  const onClick = () => {
+    toggleMenu();
+    setContent(content);
+  };
+  const onChange = (e) => {
+    setContent(e.target.value);
+  };
+  const handleCloseEdit = () => {
+    setIsEdit(false);
+  };
+
+  // 개요 , 경력 및 학력 등등 카테고리 별 쿼리스트링
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedState, setSelectedState] = useState("");
 
@@ -17,62 +35,114 @@ const About = () => {
           <h3 className="font-bold text-xl mb-[20px] ml-[6px]">정보</h3>
           <div className="flex flex-col items-center">
             <button
-              className="flex items-center w-[240px] h-[30px] bg-blue-200 rounded-md hover:brightness-[92%] text-blue-600 font-semibold text-sm pl-[10px] mb-[20px]"
+              className="flex items-center w-[240px] h-[30px] bg-white rounded-md hover:brightness-[92%] text-neutral-600 font-semibold text-sm pl-[10px] mb-[20px]"
               onClick={() => handleButtonClick("overview")}
             >
               개요
             </button>
             <button
-              className="flex items-center w-[240px] h-[30px] bg-blue-200 rounded-md hover:brightness-[92%] text-blue-600 font-semibold text-sm pl-[10px] mb-[20px]"
+              className="flex items-center w-[240px] h-[30px] bg-white rounded-md hover:brightness-[92%] text-neutral-600 font-semibold text-sm pl-[10px] mb-[20px]"
               onClick={() => handleButtonClick("career")}
             >
               경력 및 학력
             </button>
             <button
-              className="flex items-center w-[240px] h-[30px] bg-blue-200 rounded-md hover:brightness-[92%] text-blue-600 font-semibold text-sm pl-[10px] mb-[20px]"
+              className="flex items-center w-[240px] h-[30px] bg-white rounded-md hover:brightness-[92%] text-neutral-600 font-semibold text-sm pl-[10px] mb-[20px]"
               onClick={() => handleButtonClick("address")}
             >
               이전 거주지
             </button>
             <button
-              className="flex items-center w-[240px] h-[30px] bg-blue-200 rounded-md hover:brightness-[92%] text-blue-600 font-semibold text-sm pl-[10px] mb-[20px]"
+              className="flex items-center w-[240px] h-[30px] bg-white rounded-md hover:brightness-[92%] text-neutral-600 font-semibold text-sm pl-[10px] mb-[20px]"
               onClick={() => handleButtonClick("phonenumber")}
             >
               연락처 및 기본 정보
             </button>
             <button
-              className="flex items-center w-[240px] h-[30px] bg-blue-200 rounded-md hover:brightness-[92%] text-blue-600 font-semibold text-sm pl-[10px] mb-[20px]"
+              className="flex items-center w-[240px] h-[30px] bg-white rounded-md hover:brightness-[92%] text-neutral-600 font-semibold text-sm pl-[10px] mb-[20px]"
               onClick={() => handleButtonClick("family")}
             >
               가족 및 결혼/연애 상태
             </button>
             <button
-              className="flex items-center w-[240px] h-[30px] bg-blue-200 rounded-md hover:brightness-[92%] text-blue-600 font-semibold text-sm pl-[10px] mb-[20px]"
+              className="flex items-center w-[240px] h-[30px] bg-white rounded-md hover:brightness-[92%] text-neutral-600 font-semibold text-sm pl-[10px] mb-[20px]"
               onClick={() => handleButtonClick("myself")}
             >
               자세한 내 소개
             </button>
             <button
-              className="flex items-center w-[240px] h-[30px] bg-blue-200 rounded-md hover:brightness-[92%] text-blue-600 font-semibold text-sm pl-[10px] mb-[20px]"
+              className="flex items-center w-[240px] h-[30px] bg-white rounded-md hover:brightness-[92%] text-neutral-600 font-semibold text-sm pl-[10px] mb-[20px]"
               onClick={() => handleButtonClick("event")}
             >
               중요 이벤트
             </button>
           </div>
         </div>
-
-        <div className="w-[900px] h-[430px] bg-white rounded-md p-[15px] ">
+        <div className="w-[900px] h-[430px] bg-white rounded-md p-[15px] relative ">
           <div>
             {selectedState === "overview" && (
               <div>
                 <ul>
                   <li className="mb-[30px]">
-                    <div className="cursor-pointer mt-[50px]">
-                      <i className="mr-[10px] cursor-pointer">➕</i>
-                      <span className="text-blue-600 hover:underline underline-offset-8">
-                        직장 추가
-                      </span>
+                    <div className="content">
+                      {isEdit ? (
+                        <>
+                          <input
+                            className="w-[849px] h-[56px] outline-none border-2 bg-white mt-[15px] rounded-md text-left pl-[30px] hover:border-blue-600 hover:text-xs from-current"
+                            placeholder="회사"
+                            name="content"
+                            value={content}
+                            onChange={onChange}
+                          />
+                        </>
+                      ) : (
+                        <div>
+                          <span>💼 {content} 에서 근무 했음</span>
+                        </div>
+                      )}
                     </div>
+                    {isEdit ? (
+                      <div className="flex flex-col">
+                        <div className="flex justify-end mr-[15px] mt-[30px]">
+                          <button
+                            className="w-[40px] h-[40px] bg-neutral-300 rounded-md hover:brightness-[92%] mr-[5px]"
+                            onClick={handleCloseEdit}
+                          >
+                            취소
+                          </button>
+                          <button
+                            className="w-[40px] h-[40px] bg-neutral-300 rounded-md hover:brightness-[92%]"
+                            onClick={handleCloseEdit}
+                          >
+                            저장
+                          </button>
+                        </div>
+                        <div className="cursor-pointer mt-[50px]">
+                          <i className="mr-[10px] cursor-pointer">➕</i>
+                          <button
+                            className="text-blue-600 hover:underline underline-offset-8"
+                            value={content}
+                            onClick={onClick}
+                          >
+                            직장 추가
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="cursor-pointer flex mt-[30px] absolute top-[-18px] right-0 justify-center items-center">
+                        <i className="mr-[10px] cursor-pointer w-[20px] h-[20px] bg-neutral-400 rounded-full flex justify-center items-center ">
+                          ...
+                        </i>
+                        <button
+                          className="text-blue-600 hover:underline underline-offset-8 mr-[10px]"
+                          value={content}
+                          onClick={onClick}
+                        >
+                          근무 수정하기
+                        </button>
+                      </div>
+                    )}
+
                     <div className="cursor-pointer mt-[20px]">
                       <i className="mr-[10px] cursor-pointer">➕</i>
                       <span className="text-blue-600 hover:underline underline-offset-8">

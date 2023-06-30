@@ -17,7 +17,7 @@ export default function getProfile() {
         console.log(JSON.stringify(res));
         alert("프로필 받기 성공!");
       } catch (err) {
-        console.log(err);
+        console.error(err);
         alert("프로필 받기 성공!");
         return;
       }
