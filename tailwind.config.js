@@ -2,6 +2,12 @@
 export default {
   content: [" ./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    width: {
+      1250: "1250px",
+    },
+    height: {
+      460: "460px",
+    },
     extend: {},
   },
   plugins: [],

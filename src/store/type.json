@@ -1,3 +1,5 @@
 {
-    "USER_LOGIN" : "login"
+  "USER_LOGIN": "login",
+  "GET_PROFILE": "profile",
+  "PUT_PROFILE": "profileupdate"
 }

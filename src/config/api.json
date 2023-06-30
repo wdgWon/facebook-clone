@@ -1,6 +1,6 @@
 {
-   "SIGNUP_URL": "/api/register/",
-   "LOGIN_URL": "/api/login/",
-   "FRIENDS_REQUEST_URL": "/api/profiles/friends/",
-   "PROFILES_URL": "/api/profiles/mypage/1"
+  "SIGNUP_URL": "/api/register/",
+  "LOGIN_URL": "/api/login/",
+  "FRIENDS_REQUEST_URL": "/api/profiles/friends/",
+  "PROFILES_URL": "/api/profiles/4"
 }
