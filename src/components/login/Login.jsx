@@ -1,10 +1,12 @@
 import { useState } from "react";
 import Signup from "../signup/Signup";
 import { useStore } from "../../store/store";
-import { USER_LOGIN } from "../../store/type.json";
+import { USER_LOGIN, GET_PROFILE } from "../../store/type.json";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-   const dispatch = useStore()[1];
+   const navigate = useNavigate();
+   const dispatch = useStore(true)[1];
    const [formData, setFormData] = useState({
       email: "",
       password: "",
@@ -19,12 +21,18 @@ export default function Login() {
    };
 
    // 로그인 정보 api 요청
-   const handleSubmit = (event) => {
+   const handleSubmit = async (event) => {
       event.preventDefault();
 
-      dispatch(USER_LOGIN, formData);
+      try {
+         await dispatch(USER_LOGIN, formData);
 
-      console.log(JSON.stringify(formData));
+         await dispatch(GET_PROFILE);
+
+         navigate("/");
+      } catch (err) {
+         console.error(err);
+      }
    };
 
    return (
@@ -32,11 +40,15 @@ export default function Login() {
          {/* 새 계정 만들기 클릭시 회원가입 모달창 출력 */}
          {isModal && <Signup setIsModal={setIsModal} />}
 
-         <div className="flex min-h-screen items-center justify-center bg-gray-100">
+         <div className="flex flex-col min-h-screen items-center justify-center bg-gray-100">
+            <label className="flex items-center justify-center">
+               <img
+                  class="w-[300px] h-[100px] mb-[30px]"
+                  src="https://static.xx.fbcdn.net/rsrc.php/y8/r/dF5SId3UHWd.svg"
+                  alt="Facebook"
+               />
+            </label>
             <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
-               <h2 className="text-2xl font-semibold text-center mb-6">
-                  Facebook 로그인
-               </h2>
                <form className="space-y-4" onSubmit={handleSubmit}>
                   <div>
                      <label

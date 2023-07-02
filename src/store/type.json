@@ -1,3 +1,6 @@
 {
-    "USER_LOGIN" : "login"
+    "AUTHENTICATION" : "authentication",
+    "USER_LOGIN" : "login",
+    "GET_PROFILE" : "profile",
+    "GET_DISPLAY_HEIGHT" : "display_height"
 }

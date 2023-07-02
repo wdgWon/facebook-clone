@@ -28,11 +28,6 @@ const ProfileSection = () => {
     setContent("");
   };
   async function getDate() {
-    // let body = {
-    //   email: "same666@naver.com",
-    //   password: "asdf1234!",
-    // };
-
     try {
       const response = await axios.get(`/api/profiles/`);
       console.log(JSON.stringify(response));

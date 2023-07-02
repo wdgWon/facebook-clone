@@ -1,28 +1,26 @@
 import { useState, useEffect } from "react";
 
 let globalState = {}
-let listeners = [];
+let listeners = new Set();
 let actions = {}
 
 export const useStore = (shouldListen = true) => {
     const setState = useState(globalState)[1];
 
-    const dispatch = (actionIdentifier, payload) => {
-        const newState = actions[actionIdentifier](globalState, payload);
+    const dispatch = async (actionIdentifier, payload) => {
+        const newState = await actions[actionIdentifier](globalState, payload);
         globalState = { ...globalState, ...(newState || []) };
 
-        for(const listener of listeners) {
-            listener(globalState);
-        }
+        listeners.forEach(listener => listener(globalState));
     }
 
     useEffect(() => {
         if(!shouldListen) return;
 
-        listeners.push(setState);
+        listeners.add(setState);
 
         return () => {
-            listeners = listeners.filter(li => li !== setState);
+            listeners.delete(setState);
         };
     }, [setState, shouldListen]);
 

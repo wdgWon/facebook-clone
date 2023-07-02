@@ -1,5 +1,7 @@
-import userLogin from './user_login'
+import displayAction from './display_action';
+import userAction from './user_action'
 
 export default function setActions() {
-    userLogin();
+    userAction();
+    displayAction();
 }
