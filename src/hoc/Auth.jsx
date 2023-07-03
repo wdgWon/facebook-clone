@@ -37,13 +37,10 @@ export default function Auth({ option = true, admin = null, children }) {
          try {
             token
                ? await dispatch(AUTHENTICATION_ACCESS)
-               : await dispatch(AUTHENTICATION_REFRESH).then(
-                    await dispatch(AUTHENTICATION_ACCESS)
-                 );
+               : await dispatch(AUTHENTICATION_REFRESH);
             setIsAuth(true);
-            if (!store.profile) {
-               await dispatch(GET_PROFILE);
-            }
+            !store.user && await dispatch(AUTHENTICATION_ACCESS);
+            !store.profile && await dispatch(GET_PROFILE);
             !option && alert("이미 로그인 되어있습니다.");
          } catch (err) {
             console.error(err);

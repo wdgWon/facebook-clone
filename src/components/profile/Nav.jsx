@@ -9,7 +9,7 @@ const Nav = () => {
         <div className="flex items-center justify-center pt-2	">
           <div className="w-[1136px] h-[40px] flexitems-center">
             <div className=" flex  items-center  justify-between w-[560px] cursor-pointer ">
-              <Link to="/">
+              <Link to="/profile">
                 <span
                   className={
                     "pofile" +
@@ -21,7 +21,7 @@ const Nav = () => {
                   게시물
                 </span>
               </Link>
-              <Link to="/about">
+              <Link to="/profile/about">
                 <span
                   className={
                     "pofile" +
@@ -33,7 +33,7 @@ const Nav = () => {
                   정보
                 </span>
               </Link>
-              <Link to="/friends">
+              <Link to="/profile/friends">
                 <span
                   className={
                     "pofile" +
@@ -45,7 +45,7 @@ const Nav = () => {
                   친구
                 </span>
               </Link>
-              <Link to="/photos">
+              <Link to="/profile/photos">
                 <span
                   className={
                     "pofile" +
@@ -57,7 +57,7 @@ const Nav = () => {
                   사진
                 </span>
               </Link>
-              <Link to="/videos">
+              <Link to="/profile/videos">
                 <span
                   className={
                     "pofile" +
@@ -69,7 +69,7 @@ const Nav = () => {
                   동영상
                 </span>
               </Link>
-              <Link to="/map">
+              <Link to="/profile/map">
                 <span
                   className={
                     "pofile" +

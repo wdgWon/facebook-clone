@@ -27,10 +27,9 @@ export default async function authentication() {
          try {
             // refresh 토큰으로 재발급
             const refreshToken = Cookies.get("refresh_token");
-            const newAccessToken = await axios.post(
-               REFRESH_TOKEN_URL,
-               refreshToken
-            );
+            const newAccessToken = await axios.post(REFRESH_TOKEN_URL, {
+               refresh: refreshToken,
+            });
             Cookies.set(
                "access_token",
                newAccessToken.data.access,
@@ -43,6 +42,6 @@ export default async function authentication() {
          }
       },
    };
-   
+
    initStore(actions);
 }

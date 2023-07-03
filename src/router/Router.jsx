@@ -1,67 +1,67 @@
-import { createBrowserRouter } from "react-router-dom";
-import ProfileSection from "../ProfileSection";
+import { createBrowserRouter, Outlet } from "react-router-dom";
+import NavigationBar from "../components/navigation/NavigationBar";
+import ProfileSection from "../components/profile/profile_section/ProfileSection";
 import Header from "../components/profile/Header";
 import ProfileFriends from "../components/profile/Friends";
 import Photos from "../components/profile/Photos";
 import Videos from "../components/profile/Videos";
 import Map from "../components/profile/Map";
 import MainPage from "../components/main/mainpage";
-import App from "../App";
 import Login from "../components/login/Login";
 import Auth from "../hoc/Auth";
 import Friends from "../components/friends/Friends";
-import About from "../components/profile/About"
+import About from "../components/profile/About";
 
-const router = createBrowserRouter([
+const rootRouter = createBrowserRouter([
    {
-      element: <App />,
+      element: (
+         <Auth>
+            <NavigationBar />
+            <Outlet />
+         </Auth>
+      ),
       children: [
          {
             path: "/",
-            element: (
-               <Auth>
-                  <MainPage />
-               </Auth>
-            ),
+            element: <MainPage />,
          },
          {
-            path: "/profile",
             element: (
                <Auth>
                   <Header />
-                  <ProfileSection />
+                  <Outlet />
                </Auth>
             ),
             children: [
                {
+                  path: "/profile",
+                  element: <ProfileSection />,
+               },
+               {
                   path: "/profile/about",
-                  element: <About />
+                  element: <About />,
                },
                {
                   path: "/profile/friends",
-                  element: <ProfileFriends />
+                  element: <ProfileFriends />,
                },
                {
                   path: "/profile/photos",
-                  element: <Photos />
+                  element: <Photos />,
                },
                {
                   path: "/profile/videos",
-                  element: <Videos />
+                  element: <Videos />,
                },
                {
                   path: "/profile/map",
-                  element: <Map />
-               }
+                  element: <Map />,
+               },
             ]
          },
          {
             path: "/friends",
-            element: (
-               <Auth>
-                  <Friends />
-               </Auth>
-            ),
+            element: <Friends />,
          },
       ],
    },
@@ -75,4 +75,4 @@ const router = createBrowserRouter([
    },
 ]);
 
-export default router;
+export default rootRouter;
