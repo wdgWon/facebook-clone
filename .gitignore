@@ -27,8 +27,5 @@ dist-ssr
 # account
 find_account
 
-# package ignore
-package-lock.json
-
 # api list
 api-components-list.jsx
