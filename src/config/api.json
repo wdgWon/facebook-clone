@@ -4,5 +4,6 @@
    "FRIENDS_REQUEST_URL": "/api/profiles/friends/",
    "MY_PROFILES_URL": "/api/mypage/",
    "AUTHENTICATION_URL" : "/api/user/",
-   "REFRESH_TOKEN_URL" : "/api/token/refresh/"
+   "REFRESH_TOKEN_URL" : "/api/token/refresh/",
+   "PROFILES_URL" : "/api/profiles/"
 }

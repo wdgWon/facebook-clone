@@ -9,8 +9,8 @@ setActions();
 // ux 고려한 화면 스크롤
 document.body.style.overflow = "hidden scroll";
 
-
 export default function App() {
+
    return (
       <div className="relative">
          <NavgationBar />

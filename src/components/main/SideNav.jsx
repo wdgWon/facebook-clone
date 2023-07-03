@@ -22,7 +22,9 @@ const Profile = () => {
          <img
             alt="프로필 사진"
             src={profile_img}
-            className="h-9 w-9 rounded-full"
+            height="36"
+            width="36"
+            className="rounded-full"
          />
          <span className="text-black text-sm">유저 이름</span>
       </SideNavCard>
@@ -33,11 +35,10 @@ const Friends = () => {
    return (
       <SideNavCard url={FRIENDS_URL}>
          <i
-            alt="친구"
             datavisualcompletion="css-img"
-            className="bg-[url('https://static.xx.fbcdn.net/rsrc.php/v3/yz/r/4GR4KRf3hN2.png')] w-9 h-9"
-            style={{ backgroundPositionY: "-296px" }}
-         />
+            className="bg-[url('https://static.xx.fbcdn.net/rsrc.php/v3/yz/r/4GR4KRf3hN2.png')]"
+            style={{ backgroundPositionY: "-296px", width: "36px", height: "36px"}}
+         ></i>
          <span className="text-black text-sm">친구</span>
       </SideNavCard>
    );
@@ -63,9 +64,9 @@ const Event = () => {
    return (
       <SideNavCard>
          <i
-            alt="이벤트"
             data-visualcompletion="css-img"
-            className="bg-[url('https://static.xx.fbcdn.net/rsrc.php/v3/yx/r/WMOYDeEqIYv.png')] w-9 h-9"
+            className="bg-[url('https://static.xx.fbcdn.net/rsrc.php/v3/yx/r/WMOYDeEqIYv.png')]"
+            style={{ width: "36px", height: "36px"}}
          ></i>
          <span className="text-black text-sm">이벤트</span>
       </SideNavCard>
@@ -77,8 +78,8 @@ const Watch = () => {
       <SideNavCard>
          <i
             data-visualcompletion="css-img"
-            className='bg-[url("https://static.xx.fbcdn.net/rsrc.php/v3/yz/r/4GR4KRf3hN2.png")] w-9 h-9'
-            style={{ backgroundPositionY: "-518px" }}
+            className='bg-[url("https://static.xx.fbcdn.net/rsrc.php/v3/yz/r/4GR4KRf3hN2.png")]'
+            style={{ backgroundPositionY: "-518px", width: "36px", height: "36px" }}
          ></i>
          <span className="text-black/70 text-sm font-semibold">Watch</span>
       </SideNavCard>
