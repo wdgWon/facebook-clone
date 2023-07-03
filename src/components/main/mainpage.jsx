@@ -5,9 +5,9 @@ import SideNav from "./SideNav";
 import { GET_DISPLAY_HEIGHT } from "../../store/type.json";
 
 const MainPage = () => {
-   const [state, dispatch] = useStore(false);
+   const [store, dispatch] = useStore(false);
    dispatch(GET_DISPLAY_HEIGHT);
-   const [height, top] = [state.height, state.top];
+   const [height, top] = [store.height, store.top];
 
    return (
       <main

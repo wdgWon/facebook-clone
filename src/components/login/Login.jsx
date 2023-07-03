@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
    const navigate = useNavigate();
-   const dispatch = useStore(true)[1];
+   const [store, dispatch] = useStore(true);
    const [formData, setFormData] = useState({
       email: "",
       password: "",
@@ -26,9 +26,7 @@ export default function Login() {
 
       try {
          await dispatch(USER_LOGIN, formData);
-
          await dispatch(GET_PROFILE);
-
          navigate("/");
       } catch (err) {
          console.error(err);
@@ -43,7 +41,7 @@ export default function Login() {
          <div className="flex flex-col min-h-screen items-center justify-center bg-gray-100">
             <label className="flex items-center justify-center">
                <img
-                  class="w-[300px] h-[100px] mb-[30px]"
+                  className="w-[300px] h-[100px] mb-[30px]"
                   src="https://static.xx.fbcdn.net/rsrc.php/y8/r/dF5SId3UHWd.svg"
                   alt="Facebook"
                />

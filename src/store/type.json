@@ -1,5 +1,6 @@
 {
-   "AUTHENTICATION": "authentication",
+   "AUTHENTICATION_ACCESS": "authentication_access",
+   "AUTHENTICATION_REFRESH": "authentication_refresh",
    "USER_LOGIN": "login",
    "GET_PROFILE": "profile",
    "GET_DISPLAY_HEIGHT": "display_height",

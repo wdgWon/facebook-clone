@@ -1,13 +1,5 @@
 import { Outlet } from "react-router-dom";
 import NavgationBar from "./components/navigation/NavigationBar";
-import setActions from "./store/actions/actions";
-
-// 상태 관련 액션함수 선언
-setActions();
-
-
-// ux 고려한 화면 스크롤
-document.body.style.overflow = "hidden scroll";
 
 export default function App() {
 
