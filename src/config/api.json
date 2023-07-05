@@ -2,5 +2,8 @@
    "SIGNUP_URL": "/api/register/",
    "LOGIN_URL": "/api/login/",
    "FRIENDS_REQUEST_URL": "/api/profiles/friends/",
-   "PROFILES_URL": "/api/profiles/mypage/1"
+   "MY_PROFILES_URL": "/api/mypage/",
+   "AUTHENTICATION_URL" : "/api/user/",
+   "REFRESH_TOKEN_URL" : "/api/token/refresh/",
+   "PROFILES_URL" : "/api/profiles/"
 }

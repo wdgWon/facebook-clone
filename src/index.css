@@ -1,3 +1,28 @@
 @tailwind base;
+
+.scrollbar {
+   /* 스크롤바 전체 */
+   &::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+   /* 스크롤바 트랙  */
+   /* &::-webkit-scrollbar-track {
+      background-color: #747474;
+      width: 16px;
+    } */
+    
+    /* 스크롤바 막대기 */
+    &::-webkit-scrollbar-thumb {
+      background-color: #c3c3c3;
+      border-radius: 9999px;
+   }
+
+   /* 마우스 호버 시 스크롤바 */
+   &::-webkit-scrollbar-thumb:hover {
+      background-color: #747474;
+   }
+}
+
 @tailwind components;
 @tailwind utilities;
