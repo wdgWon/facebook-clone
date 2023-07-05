@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Header from "./header";
+import Header from "./Header";
 import Content from "./contents";
 // bg-slate-400
 const MainPage = () => {
@@ -10,9 +10,7 @@ const MainPage = () => {
                 <div className="flex justify-center h-[900px]">
                     <div className="grid grid-cols-3 gap-4 w-full">
                         <div className="flex justify-start">
-                            <div className="w-[300px] bg-gray-300 p-4 ml-4">
-                                첫 번째 열
-                            </div>
+                            <div className="w-[300px] bg-gray-300 p-4 ml-4"></div>
                         </div>
                         <div className="w-[500px] bg-pink-500 p-4 flex items-center justify-center ">
                             <Content />

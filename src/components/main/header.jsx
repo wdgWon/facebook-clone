@@ -2,7 +2,7 @@ import React from "react";
 import fblogo from "../../img/fblogo.png";
 import SearchBar from "./searchbars";
 import { NavLink, Link } from "react-router-dom";
-import Modals from "./promodals";
+import Modals from "./Contentmodals";
 
 // 임시로 a링크로 해둠
 
@@ -45,7 +45,7 @@ const Header = () => {
                     </a>
                     <a href="/notify" className="hover:bg-gray-200">
                         알람
-                    </a>  
+                    </a>
                     <a href="/profiles" className="hover:bg-gray-200">
                         프로필
                     </a>
