@@ -25,6 +25,7 @@ export const useStore = (shouldListen = true) => {
       listeners.add(setState);
 
       return () => {
+         console.log("store의 리스너 삭제");
          listeners.delete(setState);
       };
    }, [setState, shouldListen]);

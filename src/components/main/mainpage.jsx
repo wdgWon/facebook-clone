@@ -3,11 +3,13 @@ import Complementary from "./Complementary";
 import PostSection from "./PostSection";
 import SideNav from "./SideNav";
 import { GET_DISPLAY_HEIGHT } from "../../store/type.json";
+import { useState } from "react";
 
 const MainPage = () => {
-   const [store, dispatch] = useStore(false);
-   dispatch(GET_DISPLAY_HEIGHT);
-   const [height, top] = [store.height, store.top];
+   const [getHeight, setHeight] = useState({});
+   const dispatch = useStore(false)[1];
+   dispatch(GET_DISPLAY_HEIGHT, setHeight);
+   const [height, top] = [getHeight.height, getHeight.top];
 
    return (
       <main
@@ -28,12 +30,41 @@ const MainPage = () => {
          </article>
          <aside
             style={{ top: top, height: height }}
-            className="sticky w-full mr-2 basis-1/4 flex scrollbar overflow-hidden hover:overflow-y-auto"
+            className="sticky w-full mr-2 shrink-0 basis-1/4 flex flex-row-reverse scrollbar overflow-hidden hover:overflow-y-auto"
          >
             <Complementary />
          </aside>
       </main>
    );
+// =======
+// import React, { useState } from "react";
+// import Header from "./Header";
+// import Content from "./contents";
+// // bg-slate-400
+// const MainPage = () => {
+//     return (
+//         <div>
+//             <Header />
+//             <div className="flex flex-col min-w-screen min-h-screen py-4 justify-center bg-gray-100">
+//                 <div className="flex justify-center h-[900px]">
+//                     <div className="grid grid-cols-3 gap-4 w-full">
+//                         <div className="flex justify-start">
+//                             <div className="w-[300px] bg-gray-300 p-4 ml-4"></div>
+//                         </div>
+//                         <div className="w-[500px] bg-pink-500 p-4 flex items-center justify-center ">
+//                             <Content />
+//                         </div>
+//                         <div className="flex justify-end">
+//                             <div className="w-[300px] bg-gray-300 p-4 mr-4">
+//                                 세 번째 열
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// >>>>>>> c87cb02b3f350b5a46ebdbdd263da43ca276c2ef
 };
 
 export default MainPage;

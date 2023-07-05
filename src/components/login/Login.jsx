@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
    const navigate = useNavigate();
-   const [store, dispatch] = useStore(true);
+   const dispatch = useStore(false)[1];
    const [formData, setFormData] = useState({
       email: "",
       password: "",
