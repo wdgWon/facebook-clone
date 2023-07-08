@@ -13,11 +13,6 @@ export default function Signup({ setIsModal }) {
 
    // api 요청 비동기 함수
    async function apiRequestSignup() {
-      // 이메일 중복확인 안했으면 하라고 경고창
-      // if (isConfirmedEmail.confirm === false) {
-      //    alert("이메일 중복확인을 해주세요.");
-      //    return;
-      // }
 
       // 비밀번호 일치 확인
       if (registerInfo.password !== registerInfo.password2) {

@@ -1,14 +1,14 @@
 // import { useStore } from "../../store/store";
 
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useStore } from "../../store/store";
 import { GET_DISPLAY_HEIGHT } from "../../store/type.json";
-import Home from "./Home";
-import Request from "./Request";
-import List from "./List";
+// import Home from "./Home";
+// import Request from "./Request";
+// import List from "./List";
 
-const dummyFriends = [
+export const dummyFriends = [
    {
       id: 143,
       name: "Brett Houston",
@@ -47,7 +47,7 @@ const dummyFriends = [
    },
 ];
 
-const dummyRequests = [
+export const dummyRequests = [
    {
       id: 29,
       name: "Nettie Christensen",
@@ -78,16 +78,7 @@ export default function Friends() {
          role="friends"
          className="relative w-screen flex min-h-fit bg-[#eeeeee]"
       >
-         {/* <Home
-            getHeight={getHeight}
-            dummyRequests={dummyRequests}
-            dummyFriends={dummyFriends}
-         /> */}
-         {/* <Request
-            getHeight={getHeight}
-            dummyRequests={dummyRequests}
-         /> */}
-         <List getHeight={getHeight} dummyFriends={dummyFriends} />
+         <Outlet context={{ getHeight, dummyFriends, dummyRequests }} />
       </div>
    );
 }

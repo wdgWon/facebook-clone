@@ -1,3 +1,4 @@
+import { useOutletContext, useNavigate } from "react-router-dom";
 import DefaultProfile from "./DefaultProfile";
 
 const RequestCard = ({ src, name }) => {
@@ -25,11 +26,14 @@ const RequestCard = ({ src, name }) => {
    );
 };
 
-export default function Request({ getHeight, dummyRequests }) {
+export default function Request() {
+   const context = useOutletContext();
+   const navigate = useNavigate();
+
    return (
       <>
          <aside
-            style={{ top: getHeight.top, height: getHeight.height }}
+            style={{ top: context.getHeight.top, height: context.getHeight.height }}
             className="sticky bg-white pt-4 flex flex-col basis-1/4 shadow-md shadow-black/30 scrollbar overflow-hidden hover:overflow-y-auto"
          >
             <div
@@ -40,6 +44,7 @@ export default function Request({ getHeight, dummyRequests }) {
                   <button
                      type="button"
                      className="flex items-center justify-center p-2 rounded-full hover:bg-gray-100"
+                     onClick={() => navigate("/friends")}
                   >
                      <i
                         data-visualcompletion="css-img"
@@ -47,7 +52,7 @@ export default function Request({ getHeight, dummyRequests }) {
                         style={{ backgroundPosition: "-75px -59px" }}
                      ></i>
                   </button>
-                  <h1 className="inline-block text-black font-semibold text-3xl pl-4">
+                  <h1 className="inline-block text-black font-semibold text-2xl pl-4">
                      친구 요청
                   </h1>
                </div>
@@ -55,9 +60,9 @@ export default function Request({ getHeight, dummyRequests }) {
                   role="list"
                   className="flex flex-col space-y-2 w-full p-2"
                >
-                  <span className="inline-block p-2 text-black font-semibold text-lg">{`친구 요청 ${dummyRequests.length}개`}</span>
+                  <span className="inline-block p-2 text-black font-semibold text-lg">{`친구 요청 ${context.dummyRequests.length}개`}</span>
                   <div className="flex space-y-2 flex-col w-full">
-                     {dummyRequests.map((request) => (
+                     {context.dummyRequests.map((request) => (
                         <RequestCard
                            key={request.id}
                            src={request.profile_image}

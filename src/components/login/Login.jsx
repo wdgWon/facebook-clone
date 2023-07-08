@@ -27,10 +27,11 @@ export default function Login() {
       try {
          await dispatch(USER_LOGIN, formData);
          await dispatch(GET_PROFILE);
-         navigate("/");
       } catch (err) {
          console.error(err);
       }
+      console.log("메인 화면으로 이동");
+      navigate("/");
    };
 
    return (

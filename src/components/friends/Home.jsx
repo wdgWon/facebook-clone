@@ -1,4 +1,5 @@
-import { NavLink } from "react-router-dom";
+import { Fragment } from "react";
+import { NavLink, useOutletContext } from "react-router-dom";
 
 const HomeButton = ({ isActive }) => {
    return (
@@ -28,7 +29,7 @@ const HomeButton = ({ isActive }) => {
                }}
             ></i>
          </div>
-         <span className="flex text-black text-sm basis-full pl-3">홈</span>
+         <span className="flex text-black text-base basis-full pl-3">홈</span>
       </button>
    );
 };
@@ -61,7 +62,7 @@ const RequestButton = ({ isActive }) => {
                }}
             ></i>
          </div>
-         <span className="flex text-black text-sm basis-full pl-3">
+         <span className="flex text-black text-base basis-full pl-3">
             친구 요청
          </span>
       </button>
@@ -96,7 +97,7 @@ const ListButton = ({ isActive }) => {
                }}
             ></i>
          </div>
-         <span className="flex text-black text-sm basis-full pl-3">
+         <span className="flex text-black text-base basis-full pl-3">
             친구 목록
          </span>
       </button>
@@ -105,7 +106,7 @@ const ListButton = ({ isActive }) => {
 
 const ProfileCard = ({ src, name }) => {
    return (
-      <div className="flex flex-col rounded-md shadow shadow-black/30 overflow-hidden w-[225px] h-[377px]">
+      <div className="flex flex-col m-[5px] rounded-md shadow shadow-black/30 overflow-hidden w-[225px] h-[377px]">
          <img
             src={src}
             alt="Profile Picture"
@@ -134,7 +135,7 @@ const ProfileCard = ({ src, name }) => {
 
 const FriendCard = ({ src, name }) => {
    return (
-      <div className="flex flex-col rounded-md shadow shadow-black/30 overflow-hidden w-[225px] h-[377px]">
+      <div className="flex flex-col m-[5px] rounded-md shadow shadow-black/30 overflow-hidden w-[225px] h-[377px]">
          <img
             src={src}
             alt="Profile Picture"
@@ -164,7 +165,7 @@ const FriendCard = ({ src, name }) => {
 const SectionCard = ({title}) => {
    return (
       <div className="flex items-center">
-         <h1 className="text-black font-semibold text-lg basis-full">
+         <h1 className="text-black font-semibold text-xl basis-full">
             {title}
          </h1>
          <button type="button" className="text-[#216fdb] min-w-fit">
@@ -174,11 +175,13 @@ const SectionCard = ({title}) => {
    );
 };
 
-export default function Home({ getHeight, dummyRequests, dummyFriends }) {
+export default function Home() {
+   const context = useOutletContext();
+
    return (
-      <>
+      <Fragment>
          <aside
-            style={{ top: getHeight.top, height: getHeight.height }}
+            style={{ top: context.getHeight.top, height: context.getHeight.height }}
             className="sticky bg-white pt-4 flex flex-col basis-1/4 shadow-md shadow-black/30 scrollbar overflow-hidden hover:overflow-y-auto"
          >
             <div role="friends navigation" className="flex w-full items-center">
@@ -197,25 +200,25 @@ export default function Home({ getHeight, dummyRequests, dummyFriends }) {
                </button>
             </div>
             <div role="nav buttons" className="pt-2">
-               <NavLink>
+               <NavLink to={"/friends"}>
                   {({ isActive }) => <HomeButton isActive={isActive} />}
                </NavLink>
-               <NavLink>
+               <NavLink to={"/friends/requests"}>
                   {({ isActive }) => <RequestButton isActive={isActive} />}
                </NavLink>
-               <NavLink>
+               <NavLink to={"/friends/list"}>
                   {({ isActive }) => <ListButton isActive={isActive} />}
                </NavLink>
             </div>
          </aside>
-         <main role="friends main" className="flex flex-col basis-3/4 p-10">
+         <main role="friends main" className="flex flex-col basis-3/4 p-10 -mt-4">
             <section
                role="request"
-               className="flex flex-col min-h-fit w-full py-4"
+               className="flex flex-col space-y-4 min-h-fit w-full py-4"
             >
                 <SectionCard title={"친구 요청"} />
-               <div className="flex space-x-2 flex-wrap">
-                  {dummyRequests.map((request) => {
+               <div className="flex flex-wrap">
+                  {context.dummyRequests.map((request) => {
                      return (
                         <ProfileCard
                            key={request.id}
@@ -229,11 +232,11 @@ export default function Home({ getHeight, dummyRequests, dummyFriends }) {
             <hr className="border border-gray-300" />
             <section
                role="friends list"
-               className="flex flex-col min-h-fit w-full py-4"
+               className="flex flex-col space-y-4 min-h-fit w-full py-4"
             >
                <SectionCard title={"친구 목록"} />
-               <div className="flex space-x-2 flex-wrap">
-                  {dummyFriends.map((request) => {
+               <div className="flex flex-wrap">
+                  {context.dummyFriends.map((request) => {
                      return (
                         <FriendCard
                            key={request.id}
@@ -245,6 +248,6 @@ export default function Home({ getHeight, dummyRequests, dummyFriends }) {
                </div>
             </section>
          </main>
-      </>
+      </Fragment>
    );
 }

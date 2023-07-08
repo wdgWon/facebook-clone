@@ -1,3 +1,42 @@
+const dummyFriends = [
+   {
+      id: 143,
+      name: "Brett Houston",
+      profile_image:
+         "https://scontent-ssn1-1.xx.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?_nc_cat=1&cb=99be929b-59f725be&ccb=1-7&_nc_sid=7206a8&_nc_ohc=lxVi5aNcgXgAX-ej6A7&_nc_ht=scontent-ssn1-1.xx&oh=00_AfALXeB9oozCpCEgmbQOmlXJ8-TzGrZaRC5C0pcwNtT3fw&oe=64CC68B8",
+   },
+   {
+      id: 191,
+      name: "Noah Howard",
+      profile_image:
+         "https://scontent-ssn1-1.xx.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?_nc_cat=1&cb=99be929b-59f725be&ccb=1-7&_nc_sid=7206a8&_nc_ohc=lxVi5aNcgXgAX-ej6A7&_nc_ht=scontent-ssn1-1.xx&oh=00_AfALXeB9oozCpCEgmbQOmlXJ8-TzGrZaRC5C0pcwNtT3fw&oe=64CC68B8",
+   },
+   {
+      id: 131,
+      name: "Johnny Ortega",
+      profile_image:
+         "https://scontent-ssn1-1.xx.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?_nc_cat=1&cb=99be929b-59f725be&ccb=1-7&_nc_sid=7206a8&_nc_ohc=lxVi5aNcgXgAX-ej6A7&_nc_ht=scontent-ssn1-1.xx&oh=00_AfALXeB9oozCpCEgmbQOmlXJ8-TzGrZaRC5C0pcwNtT3fw&oe=64CC68B8",
+   },
+   {
+      id: 100,
+      name: "Fred Reese",
+      profile_image:
+         "https://scontent-ssn1-1.xx.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?_nc_cat=1&cb=99be929b-59f725be&ccb=1-7&_nc_sid=7206a8&_nc_ohc=lxVi5aNcgXgAX-ej6A7&_nc_ht=scontent-ssn1-1.xx&oh=00_AfALXeB9oozCpCEgmbQOmlXJ8-TzGrZaRC5C0pcwNtT3fw&oe=64CC68B8",
+   },
+   {
+      id: 164,
+      name: "Amanda Hayes",
+      profile_image:
+         "https://scontent-ssn1-1.xx.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?_nc_cat=1&cb=99be929b-59f725be&ccb=1-7&_nc_sid=7206a8&_nc_ohc=lxVi5aNcgXgAX-ej6A7&_nc_ht=scontent-ssn1-1.xx&oh=00_AfALXeB9oozCpCEgmbQOmlXJ8-TzGrZaRC5C0pcwNtT3fw&oe=64CC68B8",
+   },
+   {
+      id: 160,
+      name: "Mildred Ingram",
+      profile_image:
+         "https://scontent-ssn1-1.xx.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?_nc_cat=1&cb=99be929b-59f725be&ccb=1-7&_nc_sid=7206a8&_nc_ohc=lxVi5aNcgXgAX-ej6A7&_nc_ht=scontent-ssn1-1.xx&oh=00_AfALXeB9oozCpCEgmbQOmlXJ8-TzGrZaRC5C0pcwNtT3fw&oe=64CC68B8",
+   },
+];
+
 const NewCall = () => {
    return (
       <button
@@ -78,11 +117,27 @@ const Option = () => {
    );
 };
 
+const ContactCard = ({ name, src }) => {
+   return (
+      <button
+         type="button"
+         className="flex w-full p-2 space-x-2 items-center rounded-md opacity-50 hover:bg-gray-200"
+      >
+         <img
+            alt="profile image"
+            src={src}
+            className="w-10 h-10 rounded-full"
+         />
+         <span className="text-black text-base">{name}</span>
+      </button>
+   );
+};
+
 export default function Complementary() {
    return (
       <div className="flex flex-col h-fit w-[356px]">
          <div role="advertise" className=""></div>
-         <div role="contact" className="flex flex-col w-full pt-5">
+         <div role="contact" className="flex flex-col w-full pt-5 pl-10">
             <div className="flex w-full items-center">
                <span className="inline-block basis-full text-[#65676b] text-lg font-semibold pl-2">
                   연락처
@@ -93,6 +148,15 @@ export default function Complementary() {
                   <Option />
                </div>
             </div>
+            {dummyFriends.map((contact) => {
+               return (
+                  <ContactCard
+                     key={contact.id}
+                     name={contact.name}
+                     src={contact.profile_image}
+                  />
+               );
+            })}
          </div>
       </div>
    );

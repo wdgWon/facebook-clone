@@ -1,44 +1,64 @@
-import React, { useState } from "react";
+import React from "react";
 import profile_img5 from "../../img/profile_img5.png";
-import Modals from "./Contentmodals";
+import Modals from "./contentmodals";
+import { Link } from "react-router-dom";
 
 const CreateContent = () => {
-    return (
-        <div className="">
-            <div className="w-[480px] bg-white rounded-md mb-[15px] ">
-                <div
-                    className="flex items-center
-                justify-center"
-                >
-                    <div className="flex-col mt-[15px]">
-                        <div className="flex items-center mb-1">
-                            <img
-                                className="rounded-full cursor-pointer hover:brightness-[90%] w-[40px] h-[40px] m-2"
-                                alt="profile"
-                                src={profile_img5}
-                            />
-                            <Modals />
-                        </div>
-                        <hr className="w-full border-t-[1px] border-slate-500 pb-2" />
-                        <div className="flex justify-between pb-2">
-                            <button
-                                className="
-                                    w-[150px] h-[40px] bg-neutral-300 rounded-md top-80 right-11 hover:brightness-[92%] mx-[5px] text-black"
-                            >
-                                🎥라이브방송
-                            </button>
-                            <button className="w-[150px] h-[40px]  bg-neutral-300 rounded-md top-80 right-11 hover:brightness-[92%] mx-[5px] text-black">
-                                🤳사진/동영상
-                            </button>
-                            <button className="w-[150px] h-[40px]  bg-neutral-300 rounded-md top-80 right-11 hover:brightness-[92%] mx-[5px] text-black">
-                                😀기분/활동
-                            </button>
-                        </div>
-                    </div>
-                </div>
+   return (
+      <div className="w-full bg-white rounded-md shadow">
+         <div className="w-full flex flex-col items-center justify-center">
+            <div className="w-full flex space-x-2 p-3 items-center">
+               <Link to={"/profile"}>
+                  <img
+                     className="inline-block rounded-full cursor-pointer hover:brightness-[90%] w-10 h-10"
+                     alt="profile"
+                     src={profile_img5}
+                  />
+               </Link>
+               <Modals />
             </div>
-        </div>
-    );
+            <hr className="inline-block w-full mb-2 border-t border-slate-200" />
+            <div className="w-full flex justify-stretch items-center pb-2 px-2">
+               <button className="flex-1 flex justify-center items-center space-x-2 p-3 rounded-lg hover:brightness-[92%] hover:bg-neutral-100/70">
+                  <img
+                     height="24"
+                     width="24"
+                     alt="live broadcast"
+                     referrerPolicy="origin-when-cross-origin"
+                     src="https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/c0dWho49-X3.png"
+                  />
+                  <span className="inline-block shrink-0 text-[#65676b] font-semibold">
+                     라이브방송
+                  </span>
+               </button>
+               <button className="flex-1 flex justify-center items-center space-x-2 p-3 rounded-lg hover:brightness-[92%] hover:bg-neutral-100/70">
+                  <img
+                     height="24"
+                     width="24"
+                     alt="photos"
+                     referrerPolicy="origin-when-cross-origin"
+                     src="https://static.xx.fbcdn.net/rsrc.php/v3/y7/r/Ivw7nhRtXyo.png"
+                  />
+                  <span className="inline-block shrink-0 text-[#65676b] font-semibold">
+                     사진/동영상
+                  </span>
+               </button>
+               <button className="flex-1 flex justify-center items-center space-x-2 p-3 rounded-lg hover:brightness-[92%] hover:bg-neutral-100/70">
+                  <img
+                     height="24"
+                     width="24"
+                     alt="mood and activity"
+                     referrerPolicy="origin-when-cross-origin"
+                     src="https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Y4mYLVOhTwq.png"
+                  />
+                  <span className="inline-block shrink-0 text-[#65676b] font-semibold">
+                     기분/활동
+                  </span>
+               </button>
+            </div>
+         </div>
+      </div>
+   );
 };
 
 export default CreateContent;

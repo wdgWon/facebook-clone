@@ -11,9 +11,13 @@ import Login from "../components/login/Login";
 import Auth from "../hoc/Auth";
 import Friends from "../components/friends/Friends";
 import About from "../components/profile/About";
+import {default as FriendsHome} from "../components/friends/Home";
+import {default as FriendsRequests} from "../components/friends/Request";
+import {default as FriendsList} from "../components/friends/List";
 
 const rootRouter = createBrowserRouter([
    {
+      path: "/",
       element: (
          <Auth>
             <NavigationBar />
@@ -26,6 +30,7 @@ const rootRouter = createBrowserRouter([
             element: <MainPage />,
          },
          {
+            path: "/profile",
             element: (
                <Auth>
                   <Header />
@@ -57,11 +62,25 @@ const rootRouter = createBrowserRouter([
                   path: "/profile/map",
                   element: <Map />,
                },
-            ]
+            ],
          },
          {
             path: "/friends",
             element: <Friends />,
+            children: [
+               {
+                  path: "/friends",
+                  element: <FriendsHome />,
+               },
+               {
+                  path: "/friends/requests",
+                  element: <FriendsRequests />,
+               },
+               {
+                  path: "/friends/list",
+                  element: <FriendsList />,
+               },
+            ],
          },
       ],
    },

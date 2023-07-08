@@ -1,14 +1,15 @@
+import { useOutletContext, useNavigate } from "react-router-dom";
 import DefaultProfile from "./DefaultProfile";
 import SearchFriend from "./SearchFriend";
 
 const ListCard = ({ src, name }) => {
    return (
-      <div className="flex p-2 space-x-1 items-center cursor-pointer rounded-md hover:bg-gray-300">
-         <img src={src} className="w-5 h-5 rounded-full inline-block" />
-         <span className="text-black font-bold text-sm basis-full">{name}</span>
+      <div className="flex p-2 space-x-4 items-center cursor-pointer rounded-md hover:bg-gray-100">
+         <img src={src} className="w-14 h-14 rounded-full inline-block" />
+         <span className="text-black font-bold basis-full">{name}</span>
          <button
             type="button"
-            className="flex justify-center items-center p-2 rounded-full bg-[#e4e6eb] hover:bg-[#c0c1c6]"
+            className="flex justify-center items-center p-2 rounded-full"
          >
             <i
                data-visualcompletion="css-img"
@@ -20,11 +21,14 @@ const ListCard = ({ src, name }) => {
    );
 };
 
-export default function List({ getHeight, dummyFriends }) {
+export default function List() {
+   const context = useOutletContext();
+   const navigate = useNavigate();
+
    return (
       <>
          <aside
-            style={{ top: getHeight.top, height: getHeight.height }}
+            style={{ top: context.getHeight.top, height: context.getHeight.height }}
             className="sticky bg-white pt-4 flex flex-col basis-1/4 shadow-md shadow-black/30 scrollbar overflow-hidden hover:overflow-y-auto"
          >
             <div
@@ -36,6 +40,7 @@ export default function List({ getHeight, dummyFriends }) {
                      <button
                         type="button"
                         className="flex items-center justify-center p-2 rounded-full hover:bg-gray-300"
+                        onClick={() => navigate("/friends")}
                      >
                         <i
                            data-visualcompletion="css-img"
@@ -53,9 +58,9 @@ export default function List({ getHeight, dummyFriends }) {
                   role="list"
                   className="flex flex-col space-y-2 w-full p-2"
                >
-                  <span className="inline-block p-2 text-black/80 font-bold text-lg">{`친구 ${dummyFriends.length}명`}</span>
+                  <span className="inline-block p-2 text-black/80 font-bold text-lg">{`친구 ${context.dummyFriends.length}명`}</span>
                   <div className="flex space-y-2 flex-col w-full">
-                     {dummyFriends.map((request) => (
+                     {context.dummyFriends.map((request) => (
                         <ListCard
                            key={request.id}
                            src={request.profile_image}

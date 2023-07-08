@@ -75,7 +75,7 @@ export default function TopOfHome() {
    return (
       <div
          datapagelet="TopOfHome"
-         className="flex flex-col justify-center my-4 rounded-md shadow bg-white"
+         className="flex flex-col justify-center mt-4 rounded-md shadow bg-white"
       >
          <div
             role="tablist"

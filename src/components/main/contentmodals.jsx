@@ -1,11 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useState, Fragment } from "react";
 import profile_img from "../../img/profile_img5.png";
 import picture from "../../img/pictures.png";
 import maps from "../../img/maps.png";
 import presontag from "../../img/person.png";
 import emoticon from "../../img/emoticon.png";
 import threemark from "../../img/threemark.png";
-import DropZone from "./Dropzones";
+import { useStore } from "../../store/store";
+// import DropZone from "./Dropzones";
 
 const Contents = () => {
     [
@@ -25,6 +26,7 @@ const Contents = () => {
 };
 
 const Modals = () => {
+    const state = useStore(false)[0];
     const [isOpen, setIsOpen] = useState(false);
     const [iscontent, setContent] = useState("");
 
@@ -51,12 +53,12 @@ const Modals = () => {
     };
 
     return (
-        <div>
+        <Fragment>
             <button
                 onClick={openModal}
-                className="w-[400px] h-[40px] flex items-center bg-neutral-200 rounded-full pl-[15px] cursor-pointer hover:brightness-[95%]"
+                className="basis-full flex justify-start items-center p-2 bg-neutral-200/70 rounded-full cursor-pointer hover:brightness-[95%]"
             >
-                ooo님 , 무슨 생각을 하고 계신가요?
+                <span className="text-base text-[#65676b]">{`${state.user?.name}님, 무슨 생각을 하고 계신가요?`}</span>
             </button>
 
             {isOpen && (
@@ -155,7 +157,7 @@ const Modals = () => {
                     </div>
                 </div>
             )}
-        </div>
+        </Fragment>
     );
 };
 

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import profile_img from "../../img/profile_img5.png";
+import { useStore } from "../../store/store";
 
 const PROFILE_URL = "/profile";
 const FRIENDS_URL = "/friends";
@@ -16,7 +17,7 @@ const SideNavCard = ({ url, children }) => {
    );
 };
 
-const Profile = () => {
+const Profile = ({name}) => {
    return (
       <SideNavCard url={PROFILE_URL}>
          <img
@@ -26,7 +27,7 @@ const Profile = () => {
             width="36"
             className="rounded-full"
          />
-         <span className="text-black text-sm">유저 이름</span>
+         <span className="text-black text-sm">{name}</span>
       </SideNavCard>
    );
 };
@@ -87,9 +88,10 @@ const Watch = () => {
 };
 
 export default function SideNav() {
+   const state = useStore(false)[0];
    return (
       <>
-         <Profile />
+         <Profile name={state.user.name}/>
          <Friends />
          <Fid />
          <Event />
