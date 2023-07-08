@@ -36,7 +36,6 @@ const MainPage = () => {
          </aside>
       </main>
    );
-// =======
 // import React, { useState } from "react";
 // import Header from "./Header";
 // import Content from "./contents";
@@ -64,7 +63,6 @@ const MainPage = () => {
 //             </div>
 //         </div>
 //     );
-// >>>>>>> c87cb02b3f350b5a46ebdbdd263da43ca276c2ef
 };
 
 export default MainPage;
