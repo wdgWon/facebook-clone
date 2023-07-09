@@ -61,7 +61,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     def get_friends(self, obj):
         """친구 목록 딕셔너리 형태에서 리스트 형태로 언패킹"""
-        friends_list = [friend.profile_user.name for friend in obj.friends.all()]
+        friends_list = {friend.profile_user.id: friend.profile_user.name for friend in obj.friends.all()}
         return friends_list
 
 

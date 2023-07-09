@@ -39,3 +39,4 @@ class PostViewSets(viewsets.ModelViewSet):
             return PostCreateSerializer
 
         return PostSerializer
+
