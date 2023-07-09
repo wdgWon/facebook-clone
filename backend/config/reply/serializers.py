@@ -8,6 +8,7 @@ class ReplySerializer(serializers.ModelSerializer):
     class Meta:
         model = Reply
         fields = [
+            "post",
             "user_name",
             "comment",
         ]
