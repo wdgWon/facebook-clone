@@ -5,5 +5,10 @@
    "GET_PROFILE": "profile",
    "GET_DISPLAY_HEIGHT": "display_height",
    "PUT_PROFILE": "profile_update",
-   "USER_LOGOUT": "logout"
+   "USER_LOGOUT": "logout",
+   "REGISTER_SIGNUP": "signup",
+   "LOAD_POSTS": "get_post",
+   "UPLOAD_REPLY": "upload_reply",
+   "REPLY_LIKE": "like",
+   "AUTHENTICATION_DENY": "authentication_deny"
 }

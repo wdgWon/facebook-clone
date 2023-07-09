@@ -6,9 +6,6 @@ import { initStore } from "../store";
 export default function updateProfile() {
   const actions = {
     [PUT_PROFILE]: async (currentState, newState) => {
-      //[key] 프로퍼티로 고유해야 함 :
-      //type.json을 따로 폴더 만들어야 함
-      // let res; //뭔갈 받아야 하니까
       let body = {
         ...currentState,
         ...newState,

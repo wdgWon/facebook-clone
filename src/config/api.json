@@ -6,5 +6,7 @@
    "MY_PROFILES_URL": "/api/mypage/",
    "AUTHENTICATION_URL" : "/api/user/",
    "REFRESH_TOKEN_URL" : "/api/token/refresh/",
-   "PROFILES_URL" : "/api/profiles/"
+   "PROFILES_URL" : "/api/profiles/",
+   "POST_URL" : "/api/post/",
+   "REPLY_URL" : "/api/reply/"
 }
