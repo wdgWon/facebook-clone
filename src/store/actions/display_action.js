@@ -69,16 +69,15 @@ export default function displayAction() {
       [actionType.REPLY_LIKE]: async (store, payload) => {
          console.log("display_action/REPLY_LIKE");
 
-         const LIKE_URL = api.POST_URL + payload.id + "/like/";
-
+         const LIKE_URL = api.LIKE_URL.replace("{id}", payload.id);
          const idx = store.posts.findIndex((el) => el.id === payload.id);
-         store.posts[idx].like;
+         const likeCount = store.posts[idx].like + 1;
 
          try {
-            await axios.patch(LIKE_URL, {
-               like: payload.like
+            const res = await axios.patch(LIKE_URL, {
+               like: likeCount,
             });
-            return { posts: store.posts };
+            [store.posts[idx].like] = [res.data.like];
          } catch (err) {
             console.error(err);
          }

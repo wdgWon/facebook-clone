@@ -71,7 +71,6 @@ const UserContent = ({ post }) => {
    const uploadLike = async () => {
       let body = {
          id: post.id,
-         like: post.like + 1,
       }
 
       await dispatch(actionType.REPLY_LIKE, body);

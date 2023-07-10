@@ -45,15 +45,14 @@ export default function PostSection() {
    // };
 
    useEffect(() => {
-      const waitForRequest = async () => {
-         console.log("1");
+      const waitForResponse = async () => {
          try {
             await dispatch(LOAD_POSTS, setPostList);
          } catch (err) {
             console.error(err);
          };
       };
-      waitForRequest();
+      waitForResponse();
    }, []);
 
    const fetchCollback = () => {

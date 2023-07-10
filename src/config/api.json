@@ -8,5 +8,6 @@
    "REFRESH_TOKEN_URL" : "/api/token/refresh/",
    "PROFILES_URL" : "/api/profiles/",
    "POST_URL" : "/api/post/",
-   "REPLY_URL" : "/api/reply/"
+   "REPLY_URL" : "/api/reply/",
+   "LIKE_URL" : "/api/post/{id}/like/"
 }
