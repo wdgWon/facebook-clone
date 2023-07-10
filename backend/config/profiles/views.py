@@ -90,6 +90,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
         custom_user_id = self.kwargs["pk"]
         obj = get_object_or_404(queryset, profile_user_id=custom_user_id)
         return obj
+    
 
     @action(detail=True, methods=["get"], url_path="friend_request")
     def send_friend_request_action(self, request, pk=None):
@@ -134,10 +135,15 @@ class MyPageView(RetrieveUpdateAPIView):
     serializer_class = UserProfileSerializer
 
     def get_object(self):
-        queryset = self.get_queryset()
-        user_id = self.request.user.id
-        obj = get_object_or_404(queryset, profile_user_id=user_id)
+        """유저 프로필이 없을시 빈 값으로 프로필 생성 후 접근"""
 
+        queryset = self.get_queryset()
+        request_user_name = self.request.user
+
+        if not UserProfile.objects.filter(profile_user_id=request_user_name.id).exists():
+            new_profile = UserProfile(profile_user=request_user_name)
+            new_profile.save()
+        obj = get_object_or_404(queryset, profile_user_id=request_user_name.id)
         return obj
 
 

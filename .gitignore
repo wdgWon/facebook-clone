@@ -194,5 +194,5 @@ activate
 backend/config/media
 
 # nohup-logs
-backend/*.out
+backend/config/*.out
 

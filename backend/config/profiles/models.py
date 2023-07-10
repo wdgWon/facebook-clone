@@ -15,18 +15,19 @@ class UserProfile(models.Model):
     8. 친구목록
     """
 
-    profile_user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    myself = models.TextField(help_text="소개글")
+    profile_user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, default="")
+    myself = models.TextField(default="", help_text="소개글")
     mobile_phone = models.CharField(
         max_length=32,
-        help_text="연락처",
         validators=[RegexValidator(regex=r"\d{2,3}-\d{3,4}-\d{4}")],
+        default="",
+        help_text="연락처",
     )
-    company = models.CharField(max_length=100, help_text="직장")
-    education = models.CharField(max_length=50, help_text="학력")
-    residence = models.CharField(max_length=255, help_text="거주지")
-    birth_place = models.CharField(max_length=255, help_text="출생지")
-    friends = models.ManyToManyField("self", blank=True, help_text="친구 목록")
+    company = models.CharField(max_length=100, default="", help_text="직장")
+    education = models.CharField(max_length=50, default="", help_text="학력")
+    residence = models.CharField(max_length=255, default="", help_text="거주지")
+    birth_place = models.CharField(max_length=255, default="", help_text="출생지")
+    friends = models.ManyToManyField("self", blank=True, default="", help_text="친구 목록")
     friend_request = models.BooleanField(default=False, help_text="친구 요청")
     profile_image = models.ImageField(
         blank=True, null=True, upload_to="uploads", help_text="프로필 사진"
