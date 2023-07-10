@@ -30,7 +30,7 @@ const Header = () => {
 
   return (
     <div className="w-[1186px] my-0 mx-auto ">
-      <section className=" w-full h-460 bg-gradient-to-b from-neutral-200 to-neutral-500  rounded-lg  relative">
+      <section className=" w-full h-[460px] bg-gradient-to-b from-neutral-200 to-neutral-500  rounded-lg  relative">
         <div className="flex flex-col relative">
           <button className="p-1 w-[160px] h-[40px] absolute text-white  bg-neutral-600 rounded-md top-80 right-11 hover:brightness-[80%]">
             😀아바타로 만들기
