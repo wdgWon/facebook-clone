@@ -1,9 +1,10 @@
-import axios from "axios";
 import { useState } from "react";
-import api from "../../config/api.json";
+import { useStore } from "../../store/store";
+import actionType from "../../store/type.json";
 
 // 회원가입 모달창
 export default function Signup({ setIsModal }) {
+   const dispatch = useStore(false)[1];
    const [registerInfo, setRegisterInfo] = useState({
       name: "",
       email: "",
@@ -13,7 +14,6 @@ export default function Signup({ setIsModal }) {
 
    // api 요청 비동기 함수
    async function apiRequestSignup() {
-
       // 비밀번호 일치 확인
       if (registerInfo.password !== registerInfo.password2) {
          alert("비밀번호가 일치하지 않습니다.");
@@ -32,20 +32,22 @@ export default function Signup({ setIsModal }) {
 
       // 회원가입 유효성 통과후 post 비동기 요청
       try {
-         const res = await axios.post(api.SIGNUP_URL, registerInfo);
+         await dispatch(actionType.REGISTER_SIGNUP, registerInfo);
 
-         alert("가입 성공! \n성공메세지 : " + JSON.stringify(res));
+         alert("가입 성공!");
+
+         setIsModal(false);
       } catch (err) {
-         alert("가입 실패! \n에러메세지 : " + err.toString());
-         console.dir(err);
+         alert("가입 실패!");
+
+         console.error(err);
       }
    }
 
    // 서버에 가입 요청
-   const handleClick = () => {
+   const handleSubmit = (e) => {
+      e.preventDefault();
       apiRequestSignup();
-
-      console.log(JSON.stringify(registerInfo));
    };
 
    return (
@@ -73,11 +75,7 @@ export default function Signup({ setIsModal }) {
                빠르고 쉽게 가입할 수 있습니다.
             </span>
             <hr className="border border-gray-300 my-2"></hr>
-            <form
-               onSubmit={(e) => {
-                  e.preventDefault();
-               }}
-            >
+            <form onSubmit={handleSubmit}>
                <input
                   type="text"
                   value={registerInfo.name}
@@ -134,7 +132,6 @@ export default function Signup({ setIsModal }) {
                <div className="w-full flex justify-center">
                   <button
                      type="submit"
-                     onClick={handleClick}
                      className="w-1/2 bg-green-500 text-white py-1 px-4 rounded-md mt-3 hover:bg-green-600 transition-colors"
                   >
                      가입하기

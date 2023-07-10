@@ -1,12 +1,12 @@
 import axios from "axios";
 import { AUTHENTICATION_URL, REFRESH_TOKEN_URL } from "../../config/api.json";
-import { AUTHENTICATION_ACCESS, AUTHENTICATION_REFRESH } from "../type.json";
+import actionType from "../type.json";
 import Cookies from "js-cookie";
 import { initStore } from "../store";
 
 export default async function authentication() {
    const actions = {
-      [AUTHENTICATION_ACCESS]: async () => {
+      [actionType.AUTHENTICATION_ACCESS]: async () => {
          console.log("AUTHENTICATION_ACCESS");
 
          try {
@@ -21,7 +21,7 @@ export default async function authentication() {
             throw err;
          }
       },
-      [AUTHENTICATION_REFRESH]: async (store) => {
+      [actionType.AUTHENTICATION_REFRESH]: async () => {
          console.log("AUTHENTICATION_REFRESH");
 
          try {
@@ -41,6 +41,9 @@ export default async function authentication() {
             throw err;
          }
       },
+      [actionType.AUTHENTICATION_DENY]: () => {
+         return { auth: false }
+      }
    };
 
    initStore(actions);

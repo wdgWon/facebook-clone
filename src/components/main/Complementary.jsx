@@ -1,3 +1,6 @@
+import { useStore } from "../../store/store";
+import profile_image from "../../img/profile_img5.png"
+
 const dummyFriends = [
    {
       id: 143,
@@ -118,6 +121,7 @@ const Option = () => {
 };
 
 const ContactCard = ({ name, src }) => {
+   
    return (
       <button
          type="button"
@@ -134,6 +138,9 @@ const ContactCard = ({ name, src }) => {
 };
 
 export default function Complementary() {
+   const store = useStore(false)[0];
+   const friends = Object.entries(store.profile.friends);
+
    return (
       <div className="flex flex-col h-fit w-[356px]">
          <div role="advertise" className=""></div>
@@ -148,12 +155,12 @@ export default function Complementary() {
                   <Option />
                </div>
             </div>
-            {dummyFriends.map((contact) => {
+            {friends.map(([id, name]) => {
                return (
                   <ContactCard
-                     key={contact.id}
-                     name={contact.name}
-                     src={contact.profile_image}
+                     key={id}
+                     name={name}
+                     src={profile_image}
                   />
                );
             })}
