@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AUTHENTICATION_URL, REFRESH_TOKEN_URL } from "../../config/api.json";
+import { AUTHENTICATION_URL, REFRESH_TOKEN_URL } from "../../api/api.json";
 import actionType from "../type.json";
 import Cookies from "js-cookie";
 import { initStore } from "../store";
