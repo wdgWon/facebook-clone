@@ -9,6 +9,8 @@
    "REGISTER_SIGNUP": "signup",
    "LOAD_POSTS": "get_post",
    "UPLOAD_REPLY": "upload_reply",
-   "REPLY_LIKE": "like",
-   "AUTHENTICATION_DENY": "authentication_deny"
+   "POST_LIKE": "like",
+   "AUTHENTICATION_DENY": "authentication_deny",
+   "POST_CREATE": "create_post",
+   "SET_POSTLISTS_LENGTH": "set_postlist_length"
 }

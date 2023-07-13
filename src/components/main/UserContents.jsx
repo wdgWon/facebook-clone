@@ -1,9 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import profile_img from "../../img/profile_img5.png";
 import actionType from "../../store/type.json";
 import { useStore } from "../../store/store";
 
-const Reply = ({ reply, setReply }) => {
+const LikeAndReplyButton = ({ handleOnclick }) => {
+   return (
+      <div className="flex items-center">
+         <button
+            onClick={handleOnclick}
+            className="flex-1 flex py-1 justify-center items-center space-x-2 rounded-md hover:bg-gray-100"
+         >
+            <i
+               data-visualcompletion="css-img"
+               className="inline-block opacity-70 bg-[length:26px_664px] bg-[url('https://static.xx.fbcdn.net/rsrc.php/v3/y0/r/u_8wqnYWIlG.png')] w-[18px] h-[18px]"
+               style={{ backgroundPosition: "0px -202px" }}
+            ></i>
+            <span className="text-gray-600 text-sm">좋아요</span>
+         </button>
+         <button className="flex-1 flex py-1 justify-center items-center space-x-2 rounded-md hover:bg-gray-100">
+            <i
+               data-visualcompletion="css-img"
+               className="inline-block opacity-70 bg-[length:26px_664px] bg-[url('https://static.xx.fbcdn.net/rsrc.php/v3/y0/r/u_8wqnYWIlG.png')] w-[18px] h-[18px]"
+               style={{ backgroundPosition: "0px -162px" }}
+            ></i>
+            <span className="text-gray-600 text-sm">댓글</span>
+         </button>
+      </div>
+   );
+};
+
+const LikeCount = ({ like }) => {
+   return (
+      <>
+         <div className="flex w-full items-center">
+            <div className="flex items-center space-x-2">
+               <img
+                  height="18"
+                  role="presentation"
+                  src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 16 16'%3e%3cdefs%3e%3clinearGradient id='a' x1='50%25' x2='50%25' y1='0%25' y2='100%25'%3e%3cstop offset='0%25' stop-color='%2318AFFF'/%3e%3cstop offset='100%25' stop-color='%230062DF'/%3e%3c/linearGradient%3e%3cfilter id='c' width='118.8%25' height='118.8%25' x='-9.4%25' y='-9.4%25' filterUnits='objectBoundingBox'%3e%3cfeGaussianBlur in='SourceAlpha' result='shadowBlurInner1' stdDeviation='1'/%3e%3cfeOffset dy='-1' in='shadowBlurInner1' result='shadowOffsetInner1'/%3e%3cfeComposite in='shadowOffsetInner1' in2='SourceAlpha' k2='-1' k3='1' operator='arithmetic' result='shadowInnerInner1'/%3e%3cfeColorMatrix in='shadowInnerInner1' values='0 0 0 0 0 0 0 0 0 0.299356041 0 0 0 0 0.681187726 0 0 0 0.3495684 0'/%3e%3c/filter%3e%3cpath id='b' d='M8 0a8 8 0 00-8 8 8 8 0 1016 0 8 8 0 00-8-8z'/%3e%3c/defs%3e%3cg fill='none'%3e%3cuse fill='url(%23a)' xlink:href='%23b'/%3e%3cuse fill='black' filter='url(%23c)' xlink:href='%23b'/%3e%3cpath fill='white' d='M12.162 7.338c.176.123.338.245.338.674 0 .43-.229.604-.474.725a.73.73 0 01.089.546c-.077.344-.392.611-.672.69.121.194.159.385.015.62-.185.295-.346.407-1.058.407H7.5c-.988 0-1.5-.546-1.5-1V7.665c0-1.23 1.467-2.275 1.467-3.13L7.361 3.47c-.005-.065.008-.224.058-.27.08-.079.301-.2.635-.2.218 0 .363.041.534.123.581.277.732.978.732 1.542 0 .271-.414 1.083-.47 1.364 0 0 .867-.192 1.879-.199 1.061-.006 1.749.19 1.749.842 0 .261-.219.523-.316.666zM3.6 7h.8a.6.6 0 01.6.6v3.8a.6.6 0 01-.6.6h-.8a.6.6 0 01-.6-.6V7.6a.6.6 0 01.6-.6z'/%3e%3c/g%3e%3c/svg%3e"
+                  width="18"
+               />
+               <span className="text-sm text-gray-400">{like}</span>
+            </div>
+         </div>
+         <hr className="w-full border-t-[1px] border-slate-300" />
+      </>
+   );
+};
+
+const ReplyInput = ({ reply, setReply }) => {
    return (
       <label className="ml-2 w-full flex place-items-center rounded-[50px] bg-[#f0f2f0] cursor-text">
          <span className="pl-[10px]">
@@ -41,28 +86,42 @@ const Reply = ({ reply, setReply }) => {
    );
 };
 
-const UserContent = ({ post }) => {
+const ReplyCard = ({ children }) => {
+   return (
+      <div className="flex w-full space-x-2 mt-2">
+         <img
+            alt="profile image"
+            src={profile_img}
+            className="inline-block w-8 h-8 rounded-full cursor-pointer"
+         />
+         {children}
+      </div>
+   );
+};
+
+const UserContent = ({ post, index }) => {
    const [reply, setReply] = useState("");
-   const [store, dispatch] = useStore(false);
+   const [postInfo, setPostInfo] = useState(Object.assign({}, post));
+   const [store, dispatch] = useStore(true);
+
+   useEffect(() => {
+      setPostInfo(() => ({ ...store.posts[index] }));
+   }, [store.posts, store.postsLen]);
 
    const handleSubmit = (e) => {
       e.preventDefault();
       uploadReply();
+      setReply("");
    };
 
    const handleOnclick = () => {
       uploadLike();
-   }
+   };
 
    const uploadReply = async () => {
-
       let body = {
-         id: post.id,
-         reply: {
-            user_name: store.user.name,
-            comment: reply,
-            created_time: "방금 전",
-         },
+         id: postInfo.id,
+         reply: reply,
       };
 
       await dispatch(actionType.UPLOAD_REPLY, body);
@@ -70,11 +129,11 @@ const UserContent = ({ post }) => {
 
    const uploadLike = async () => {
       let body = {
-         id: post.id,
-      }
+         id: postInfo.id,
+      };
 
-      await dispatch(actionType.REPLY_LIKE, body);
-   }
+      await dispatch(actionType.POST_LIKE, body);
+   };
 
    return (
       <div className="flex flex-col space-y-2 w-full bg-white p-4 shadow rounded-lg">
@@ -86,70 +145,49 @@ const UserContent = ({ post }) => {
             />
             <div>
                <h2 className="text-base cursor-pointer font-semibold">
-                  {post.writer_name}
+                  {postInfo.writer_name}
                </h2>
                <p className="text-gray-600 text-sm cursor-default">
-                  {post.created_time}
+                  {postInfo.created_time}
                </p>
             </div>
          </div>
-         <div>{post.content}</div>
-         {post.image !== "http://example.com" && post.image && (
-            <img src={post.image} alt="post image" className="w-full h-fit" />
-         )}
-         {post.like !== 0 && (
-            <div className="flex w-full items-center">
-               <div className="flex items-center space-x-2">
-                  <img
-                     height="18"
-                     role="presentation"
-                     src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 16 16'%3e%3cdefs%3e%3clinearGradient id='a' x1='50%25' x2='50%25' y1='0%25' y2='100%25'%3e%3cstop offset='0%25' stop-color='%2318AFFF'/%3e%3cstop offset='100%25' stop-color='%230062DF'/%3e%3c/linearGradient%3e%3cfilter id='c' width='118.8%25' height='118.8%25' x='-9.4%25' y='-9.4%25' filterUnits='objectBoundingBox'%3e%3cfeGaussianBlur in='SourceAlpha' result='shadowBlurInner1' stdDeviation='1'/%3e%3cfeOffset dy='-1' in='shadowBlurInner1' result='shadowOffsetInner1'/%3e%3cfeComposite in='shadowOffsetInner1' in2='SourceAlpha' k2='-1' k3='1' operator='arithmetic' result='shadowInnerInner1'/%3e%3cfeColorMatrix in='shadowInnerInner1' values='0 0 0 0 0 0 0 0 0 0.299356041 0 0 0 0 0.681187726 0 0 0 0.3495684 0'/%3e%3c/filter%3e%3cpath id='b' d='M8 0a8 8 0 00-8 8 8 8 0 1016 0 8 8 0 00-8-8z'/%3e%3c/defs%3e%3cg fill='none'%3e%3cuse fill='url(%23a)' xlink:href='%23b'/%3e%3cuse fill='black' filter='url(%23c)' xlink:href='%23b'/%3e%3cpath fill='white' d='M12.162 7.338c.176.123.338.245.338.674 0 .43-.229.604-.474.725a.73.73 0 01.089.546c-.077.344-.392.611-.672.69.121.194.159.385.015.62-.185.295-.346.407-1.058.407H7.5c-.988 0-1.5-.546-1.5-1V7.665c0-1.23 1.467-2.275 1.467-3.13L7.361 3.47c-.005-.065.008-.224.058-.27.08-.079.301-.2.635-.2.218 0 .363.041.534.123.581.277.732.978.732 1.542 0 .271-.414 1.083-.47 1.364 0 0 .867-.192 1.879-.199 1.061-.006 1.749.19 1.749.842 0 .261-.219.523-.316.666zM3.6 7h.8a.6.6 0 01.6.6v3.8a.6.6 0 01-.6.6h-.8a.6.6 0 01-.6-.6V7.6a.6.6 0 01.6-.6z'/%3e%3c/g%3e%3c/svg%3e"
-                     width="18"
-                  />
-                  <span className="text-sm text-gray-400">{post.like}</span>
-               </div>
-            </div>
-         )}
-         {(post.like !== 0 || post.reply_list.length !== 0) && (
-            <hr className="w-full border-t-[1px] border-slate-300" />
-         )}
-         <div className="flex items-center">
-            <button onClick={handleOnclick} className="flex-1 flex py-1 justify-center items-center space-x-2 rounded-md hover:bg-gray-100">
-               <i
-                  data-visualcompletion="css-img"
-                  className="inline-block opacity-70 bg-[length:26px_664px] bg-[url('https://static.xx.fbcdn.net/rsrc.php/v3/y0/r/u_8wqnYWIlG.png')] w-[18px] h-[18px]"
-                  style={{ backgroundPosition: "0px -202px" }}
-               ></i>
-               <span className="text-gray-600 text-sm">좋아요</span>
-            </button>
-            <button className="flex-1 flex py-1 justify-center items-center space-x-2 rounded-md hover:bg-gray-100">
-               <i
-                  data-visualcompletion="css-img"
-                  className="inline-block opacity-70 bg-[length:26px_664px] bg-[url('https://static.xx.fbcdn.net/rsrc.php/v3/y0/r/u_8wqnYWIlG.png')] w-[18px] h-[18px]"
-                  style={{ backgroundPosition: "0px -162px" }}
-               ></i>
-               <span className="text-gray-600 text-sm">댓글</span>
-            </button>
-         </div>
-         <hr className="w-full border-t-[1px] border-slate-300" />
-         <div className="flex w-full space-x-2 items-center">
+         <div>{postInfo.content}</div>
+         {postInfo.image !== "http://example.com" && !!postInfo.image && (
             <img
-               alt="profile image"
-               src={profile_img}
-               className="inline-block w-8 h-8 rounded-full cursor-pointer"
+               src={postInfo.image}
+               alt="post image"
+               className="w-full h-fit"
             />
+         )}
+         {!!postInfo.like && <LikeCount like={postInfo.like} />}
+         <LikeAndReplyButton handleOnclick={handleOnclick} />
+         <hr className="w-full border-t-[1px] border-slate-300" />
+         <ReplyCard>
             <form className="w-full" onSubmit={handleSubmit}>
-               <Reply reply={reply} setReply={setReply} />
+               <ReplyInput reply={reply} setReply={setReply} />
             </form>
-            <div className="w-full flex flex-col">
-               {post.reply_list.map((reply, index) => {
-                  return (
-                  <div key={index} className="w-full flex space-x-2">
-                     <h1 className="">{reply.writer_name}</h1>
-                     <p className="inline-block text-black text-lg">{reply.comment}</p>
-                  </div>);
-               })}
-            </div>
+         </ReplyCard>
+         <div className="w-full flex flex-col">
+            {postInfo.reply_list.map((reply, index) => {
+               return (
+                  <ReplyCard key={index}>
+                     <div className="basis-full flex flex-col space-y-1">
+                        <div className=" flex flex-col w-fit py-1 px-3 rounded-2xl bg-gray-200/60">
+                           <span className="text-black font-semibold text-xs">
+                              {reply.user_name}
+                           </span>
+                           <p className="inline-block text-black">
+                              {reply.comment}
+                           </p>
+                        </div>
+                        <span className="text-black text-[8px] inline-block ml-3">
+                           {reply.created_time}
+                        </span>
+                     </div>
+                  </ReplyCard>
+               );
+            })}
          </div>
       </div>
    );

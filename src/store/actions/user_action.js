@@ -1,5 +1,5 @@
 import axios from "axios";
-import api from "../../config/api.json";
+import api from "../../api/api.json";
 import { initStore } from "../store";
 import actionType from "../type.json";
 

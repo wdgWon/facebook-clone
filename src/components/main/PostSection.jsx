@@ -1,17 +1,24 @@
 import TopOfHome from "./TopOfHome";
-// import Content from "./contents";
 import CreateContent from "./createcontents";
 import UserContent from "./UserContents";
-import { LOAD_POSTS } from "../../store/type.json";
+import actionType from "../../store/type.json";
 import { useStore } from "../../store/store";
 import { useState, useEffect, useRef } from "react";
-// import useInfiniteScroll from "../../hooks/useInfiniteScroll";
+
+const NUMBER_OF_ADD_LISTS = 5;
 
 export default function PostSection() {
    const [isFetching, setIsFetching] = useState(false);
-   const [postList, setPostList] = useState([]);
    const [store, dispatch] = useStore(true);
    const postRef = useRef(null);
+   
+   const setPostsListLength = () => {
+      if (store.postsLen >= store.posts.length) {
+         return;
+      }
+      dispatch(actionType.SET_POSTLISTS_LENGTH, NUMBER_OF_ADD_LISTS);
+      setIsFetching(false);
+   };
 
    const handleScroll = () => {
       if (!postRef.current) {
@@ -24,7 +31,7 @@ export default function PostSection() {
 
       if (!isFetching && scrolledToBottom) {
          setIsFetching(true);
-         fetchCollback();
+         setPostsListLength();
       }
    };
 
@@ -34,44 +41,30 @@ export default function PostSection() {
          window.removeEventListener("scroll", handleScroll);
       };
    }, [handleScroll]);
-
-
-   // const fetchInitialRequest = async () => {
-   //    try {
-   //       await dispatch(LOAD_POSTS, setPostList);
-   //    } catch (err) {
-   //       console.error(err);
-   //    }
-   // };
-
+   
    useEffect(() => {
-      const waitForResponse = async () => {
+      const fetchInitialPosts = async () => {
          try {
-            await dispatch(LOAD_POSTS, setPostList);
+            await dispatch(actionType.LOAD_POSTS, NUMBER_OF_ADD_LISTS);
          } catch (err) {
             console.error(err);
-         };
+         }
       };
-      waitForResponse();
+      fetchInitialPosts();
    }, []);
 
-   const fetchCollback = () => {
-      const listLen = postList.length;
-      if(listLen >= store.posts.length) {
-         return;
-      }
-      setPostList(postList => postList.concat(store.posts.slice(listLen, listLen+5)));
-      setIsFetching(false);
-   }
+
+   // useEffect(() => {
+   //    if(store.isPostCreated !== null) {
+   //       setListLen((listLen) => listLen + 1);
+   //    }
+   // }, [store]);
 
    useEffect(() => {
       if (isFetching) {
          setIsFetching(false);
       }
    }, [isFetching]);
-   // const fetchScrollPosts = useCallback(fetchCollback, []);
-
-   // const [isFetching, setIsFetching] = useInfiniteScroll(fetchScrollPosts, postRef);
 
    return (
       <div
@@ -80,8 +73,8 @@ export default function PostSection() {
       >
          <TopOfHome />
          <CreateContent />
-         {postList.map((post, index) => (
-            <UserContent key={index} post={post} />
+         {store.posts.slice(0, store.postsLen).map((post, index) => (
+            <UserContent key={index} post={post} index={index} />
          ))}
          {isFetching && "Fetching..."}
       </div>
