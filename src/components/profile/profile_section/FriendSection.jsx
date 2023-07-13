@@ -4,7 +4,6 @@ import profile_img5 from "../../../img/profile_img5.png";
 import { useStore } from "../../../store/store";
 import api from "../../../config/api.json";
 
-
 const ListCard = ({ id, name }) => {
   const [friends, setFriends] = useState([]);
 
@@ -20,13 +19,13 @@ const ListCard = ({ id, name }) => {
 
   return (
     <Link to={"/profile/" + id}>
-      <button 
-        onClick={handleOnClick} 
+      <button
+        onClick={handleOnClick}
         className="w-[140px] h-[140px] bg-neutral-300 rounded-lg block"
-        >
+      >
         <img src={profile_img5} className="w-full h-full" alt="name" />
       </button>
-        </Link>
+    </Link>
   );
 };
 
