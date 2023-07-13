@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import profile_img from "../../img/profile_img5.png";
 import actionType from "../../store/type.json";
 import { useStore } from "../../store/store";
+import axios from "axios";
 
 const LikeAndReplyButton = ({ handleOnclick }) => {
    return (

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PROFILES_URL } from "../../config/api.json";
+import { PROFILES_URL } from "../../api/api.json";
 import { PUT_PROFILE } from "../type.json";
 import { initStore } from "../store";
 
