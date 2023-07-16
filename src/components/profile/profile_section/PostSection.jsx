@@ -1,3 +1,4 @@
+
 export default function PostSection() {
    return (
       <div className="w-[637px] h-[173px] bg-white rounded-md ">

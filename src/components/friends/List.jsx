@@ -3,14 +3,14 @@ import { useStore } from "../../store/store";
 import {
   useOutletContext,
   useNavigate,
-  useParams,
+  useSearchParams,
   NavLink,
   Outlet,
 } from "react-router-dom";
 import DefaultProfile from "./DefaultProfile";
 import SearchFriend from "./SearchFriend";
 import profileImage from "../../img/profile_img5.png";
-import api from "../../config/api.json";
+import api from "../../api/api.json";
 
 const ListCard = ({ src, name, id }) => {
   const fetchFriends = async () => {
@@ -31,7 +31,7 @@ const ListCard = ({ src, name, id }) => {
 
   return (
     <NavLink
-      to={"/friends/list/" + id}
+      to={`./profile?id=${id}`}
       className="flex p-2 space-x-4 items-center cursor-pointer rounded-md hover:!bg-gray-100
       "
       style={({ isActive }) => {
@@ -59,7 +59,7 @@ const ListCard = ({ src, name, id }) => {
 export default function List() {
   const context = useOutletContext();
   const navigate = useNavigate();
-  const { id } = useParams();
+  const searchParam = useSearchParams()[0];
   const [store] = useStore();
 
   return (
@@ -107,7 +107,7 @@ export default function List() {
         </div>
       </aside>
       <main role="others profile" className="flex flex-col basis-3/4 p-10">
-        {id ? <Outlet /> : <DefaultProfile />}
+        {searchParam.get("id") ? <Outlet /> : <DefaultProfile />}
       </main>
     </>
   );

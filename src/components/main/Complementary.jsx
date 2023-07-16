@@ -1,5 +1,6 @@
 import { useStore } from "../../store/store";
 import profile_image from "../../img/profile_img5.png"
+import { Link } from "react-router-dom";
 
 const dummyFriends = [
    {
@@ -120,11 +121,10 @@ const Option = () => {
    );
 };
 
-const ContactCard = ({ name, src }) => {
+const ContactCard = ({ id, name, src }) => {
    
    return (
-      <button
-         type="button"
+      <Link to={`./profile?id=${id}`}
          className="flex w-full p-2 space-x-2 items-center rounded-md opacity-50 hover:bg-gray-200"
       >
          <img
@@ -133,7 +133,7 @@ const ContactCard = ({ name, src }) => {
             className="w-10 h-10 rounded-full"
          />
          <span className="text-black text-base">{name}</span>
-      </button>
+      </Link>
    );
 };
 
@@ -159,6 +159,7 @@ export default function Complementary() {
                return (
                   <ContactCard
                      key={id}
+                     id={id}
                      name={name}
                      src={profile_image}
                   />

@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState} from "react";
 import { useStore } from "../../../store/store";
 
 const MAXLENGTH = 101;
 
 export default function IntroductionSection({ setModal, setHobbyModal }) {
-   const dispatch = useStore()[1];
+   const [store, dispatch] = useStore();
    const [isEdit, setIsEdit] = useState(false);
    const [content, setContent] = useState("");
    const [previousContent, setPreviousContent] = useState("");
@@ -103,8 +103,7 @@ export default function IntroductionSection({ setModal, setHobbyModal }) {
             </button>
          </div>
          <div
-            className="
-              w-[458px] h-[36px] border-t-[1px] bg-neutral-300 mt-[15px] rounded-md flex justify-center items-center cursor-pointer"
+            className="w-[458px] h-[36px] border-t-[1px] bg-neutral-300 mt-[15px] rounded-md flex justify-center items-center cursor-pointer"
             onClick={() => {
                setHobbyModal(true);
             }}

@@ -1,29 +1,29 @@
-import { useState } from "react";
-import axios from "axios";
+// import { useState } from "react";
+// import axios from "axios";
 import profile_img5 from "../../../img/profile_img5.png";
 import { useStore } from "../../../store/store";
-import api from "../../../api/api.json";
+// import api from "../../../api/api.json";
 import { Link } from "react-router-dom";
 
 const ListCard = ({ id, name }) => {
-   const [friends, setFriends] = useState([]);
+   // const [friends, setFriends] = useState([]);
 
-   const handleOnClick = async () => {
-      const URL = api.FRIENDS_REQUEST_URL.replace("{id}", id);
-      try {
-         const response = await axios.get(URL);
-         setFriends(response.data);
-      } catch (error) {
-         console.log(error);
-      }
-   };
+   // const handleOnClick = async () => {
+   //    const URL = api.FRIENDS_REQUEST_URL.replace("{id}", id);
+   //    try {
+   //       const response = await axios.get(URL);
+   //       setFriends(response.data);
+   //    } catch (error) {
+   //       console.log(error);
+   //    }
+   // };
 
    return (
-      <Link to={"/profile/" + id}>
+      <Link to={`/profile?id=${id}`}>
          <div className="flex flex-col space-y-1">
             <button
                type="button"
-               onClick={handleOnClick}
+               // onClick={handleOnClick}
                className="w-[140px] h-[140px] bg-neutral-300 rounded-lg block"
             >
                <img src={profile_img5} className="w-full h-full" alt={name} />
@@ -42,9 +42,9 @@ export default function FriendSection() {
       <section className="w-full h-[534px] pt-[15px] bg-white rounded-md flex flex-col justify-center">
          <div className="flex items-center justify-between ml-[15px]">
             <span className="text-xl font-bold">친구</span>
-            <span className="text-blue-600 pr-[15px] cursor-pointer">
+            <Link to={"/friends"} className="text-blue-600 pr-[15px] cursor-pointer">
                모든 친구 보기
-            </span>
+            </Link>
          </div>
          <div>
             <span className="ml-[15px]">{`user friend  ${friends.length}명`}</span>
