@@ -10,7 +10,7 @@ import {
 import DefaultProfile from "./DefaultProfile";
 import SearchFriend from "./SearchFriend";
 import profileImage from "../../img/profile_img5.png";
-import api from "../../config/api.json";
+import api from "../../api/api.json";
 
 const ListCard = ({ src, name, id }) => {
   const fetchFriends = async () => {

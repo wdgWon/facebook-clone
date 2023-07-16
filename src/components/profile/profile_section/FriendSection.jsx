@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import profile_img5 from "../../../img/profile_img5.png";
 import { useStore } from "../../../store/store";
-import api from "../../../config/api.json";
+import api from "../../../api/api.json";
 
 const ListCard = ({ id, name }) => {
   const [friends, setFriends] = useState([]);
