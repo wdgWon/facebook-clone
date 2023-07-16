@@ -17,7 +17,7 @@ export default function Auth({ option = true, admin = null, children }) {
                await dispatch(actionType.AUTHENTICATION_ACCESS);
             } catch (err) {
                await dispatch(actionType.AUTHENTICATION_REFRESH);
-               await dispatch(actionType.AUTHENTICATION_ACCESS);
+               // await dispatch(actionType.AUTHENTICATION_ACCESS);
             }
 
             setIsAuth(true);

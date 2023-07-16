@@ -7,6 +7,7 @@
   "AUTHENTICATION_URL": "/api/user/",
   "REFRESH_TOKEN_URL": "/api/token/refresh/",
   "PROFILES_URL": "/api/profiles/",
+  "PROFILES_RETRIEVE_URL": "/api/profiles/{id}/",
   "POST_URL": "/api/post/",
   "REPLY_URL": "/api/reply/",
   "LIKE_URL": "/api/post/{id}/like/",
