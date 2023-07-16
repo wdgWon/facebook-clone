@@ -32,7 +32,6 @@ export default function Login() {
             console.error(err);
          }
       };
-
       try {
          await dispatch(actionType.USER_LOGIN, formData);
          await getProfile();

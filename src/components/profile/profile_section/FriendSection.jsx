@@ -2,8 +2,8 @@
 // import axios from "axios";
 import profile_img5 from "../../../img/profile_img5.png";
 import { useStore } from "../../../store/store";
-// import api from "../../../api/api.json";
 import { Link } from "react-router-dom";
+
 
 const ListCard = ({ id, name }) => {
    // const [friends, setFriends] = useState([]);

@@ -14,7 +14,7 @@ export default function updateProfile() {
       try {
         await axios.put(PROFILES_URL, body);
       } catch (err) {
-        if(err.response.status === 500) {
+        if (err.response.status === 500) {
           console.log("프로필 업데이트 성공!");
           console.log(err);
           return { profile: body };

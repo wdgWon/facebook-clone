@@ -65,6 +65,16 @@ class UserProfileSerializer(serializers.ModelSerializer):
         return friends_list
 
 
+class MyPageSerializer(UserProfileSerializer):
+    profile_user_id = serializers.StringRelatedField(
+        source="profile_user.id", read_only=True
+    )
+
+    class Meta(UserProfileSerializer.Meta):
+        add_field = ["profile_user_id"]
+        fields = UserProfileSerializer.Meta.fields + add_field
+
+
 class UserProfileSearchSerializer(serializers.ModelSerializer):
     profile_user_id = serializers.PrimaryKeyRelatedField(
         source="profile_user.id", read_only=True
