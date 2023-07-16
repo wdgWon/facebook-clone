@@ -18,8 +18,7 @@ export default function WritePost() {
                <hr className="w-full border-t-[1px] border-slate-500 pb-[30px]" />
                <div className="flex justify-between">
                   <button
-                     className="
-                w-[160px] h-[40px] bg-neutral-300 rounded-md top-80 right-11 hover:brightness-[92%] mx-[5px] text-black"
+                     className="w-[160px] h-[40px] bg-neutral-300 rounded-md top-80 right-11 hover:brightness-[92%] mx-[5px] text-black"
                   >
                      🎥라이브방송
                   </button>
