@@ -8,12 +8,14 @@ class FriendSerializer(serializers.ModelSerializer):
         source="receiver.name", read_only=True
     )
     sender_name = serializers.StringRelatedField(source="sender.name", read_only=True)
+    sender_id = serializers.StringRelatedField(source="sender.id", read_only=True)
     when_request = serializers.SerializerMethodField()
 
     class Meta:
         model = FriendRequest
         fields = [
             "id",
+            "sender_id",
             "sender_name",
             "receiver_name",
             "is_accepted",
