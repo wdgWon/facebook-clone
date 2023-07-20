@@ -1,5 +1,7 @@
 import { Fragment } from "react";
-import { NavLink, useOutletContext } from "react-router-dom";
+import { Link, NavLink, useOutletContext } from "react-router-dom";
+import { useStore } from "../../store/store";
+import profile_image from "../../img/profile_img5.png"
 
 const HomeButton = ({ isActive }) => {
    return (
@@ -133,7 +135,7 @@ const ProfileCard = ({ src, name }) => {
    );
 };
 
-const FriendCard = ({ src, name }) => {
+const FriendCard = ({ src, id, name }) => {
    return (
       <div className="flex flex-col m-[5px] rounded-md shadow shadow-black/30 overflow-hidden w-[225px] h-[377px]">
          <img
@@ -145,18 +147,16 @@ const FriendCard = ({ src, name }) => {
             <span className="flex-1 text-black font-semibold inline-block">
                {name}
             </span>
-            <button
-               type="button"
+            <Link to={`/profile?id=${id}`}
                className="flex flex-1 items-center justify-center w-full text-white font-semibold bg-[#1b74e4] rounded-md shadow-sm cursor-pointer hover:bg-[#135bb3]"
             >
                프로필
-            </button>
-            <button
-               type="button"
+            </Link>
+            <Link
                className="flex flex-1 items-center justify-center w-full text-black font-semibold bg-[#e4e6eb] rounded-md shadow-sm cursor-pointer hover:bg-[#c0c1c6]"
             >
                친구 삭제
-            </button>
+            </Link>
          </div>
       </div>
    );
@@ -177,6 +177,8 @@ const SectionCard = ({title}) => {
 
 export default function Home() {
    const context = useOutletContext();
+   const store = useStore(false)[0];
+   const friends = Object.entries(store.profile.friends);
 
    return (
       <Fragment>
@@ -218,12 +220,13 @@ export default function Home() {
             >
                 <SectionCard title={"친구 요청"} />
                <div className="flex flex-wrap">
-                  {context.dummyRequests.map((request) => {
+                  {store.friendRequests.map((request) => {
                      return (
                         <ProfileCard
                            key={request.id}
-                           src={request.profile_image}
-                           name={request.name}
+                           id={request.id}
+                           src={profile_image}
+                           name={request.sender_name}
                         />
                      );
                   })}
@@ -236,12 +239,13 @@ export default function Home() {
             >
                <SectionCard title={"친구 목록"} />
                <div className="flex flex-wrap">
-                  {context.dummyFriends.map((request) => {
+                  {friends.map(([id, name]) => {
                      return (
                         <FriendCard
-                           key={request.id}
-                           src={request.profile_image}
-                           name={request.name}
+                           key={id}
+                           id={id}
+                           src={profile_image}
+                           name={name}
                         />
                      );
                   })}

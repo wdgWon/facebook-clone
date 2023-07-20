@@ -11,7 +11,7 @@
   "POST_URL": "/api/post/",
   "REPLY_URL": "/api/reply/",
   "LIKE_URL": "/api/post/{id}/like/",
-  "GET_FRIEND_PROFILE_URL": "/api/profiles/{id}/friend_request/",
-  "FRIENDS_UPDATE": "/api/friends/",
+  "ACCEPT_FRIEND_URL": "/api/profiles/{id}/friend_request/",
+  "FRIEND_REQUESTS_LIST_URL": "/api/friends/",
   "POST_RETRIEVE_URL": "/api/post/{id}/"
 }

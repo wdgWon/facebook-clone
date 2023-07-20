@@ -6,6 +6,8 @@ import PhotosSection from "./PhotosSection";
 import IntroductionSection from "./IntroductionSection";
 import WritePost from "./WritePost";
 import PostSection from "./PostSection";
+import MainPostSection from "../../main/PostSection";
+import CreateContent from "../../main/createcontents";
 // import { useSearchParams } from "react-router-dom";
 // import { useStore } from "../../../store/store";
 
@@ -53,8 +55,10 @@ const ProfileSection = () => {
                <FriendSection />
             </div>
             <div className="mr-[20px] ">
-               <WritePost />
-               <PostSection />
+               <MainPostSection>
+                  <CreateContent />
+                  <PostSection />
+               </MainPostSection>
             </div>
          </section>
       </div>

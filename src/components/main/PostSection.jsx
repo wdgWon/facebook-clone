@@ -1,26 +1,26 @@
-import TopOfHome from "./TopOfHome";
-import CreateContent from "./createcontents";
+// import TopOfHome from "./TopOfHome";
+// import CreateContent from "./createcontents";
 import UserContent from "./UserContents";
 import actionType from "../../store/type.json";
 import { useStore } from "../../store/store";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 const NUMBER_OF_ADD_LISTS = 5;
 
-export default function PostSection() {
+export default function PostSection({ children }) {
    const [isFetching, setIsFetching] = useState(false);
    const [store, dispatch] = useStore(true);
    const postRef = useRef(null);
-   
-   const setPostsListLength = () => {
+
+   const setPostsListLength = useCallback(() => {
       if (store.postsLen >= store.posts.length) {
          return;
       }
       dispatch(actionType.SET_POSTLISTS_LENGTH, NUMBER_OF_ADD_LISTS);
       setIsFetching(false);
-   };
+   }, [dispatch, store.postsLen, store.posts.length]);
 
-   const handleScroll = () => {
+   const handleScroll = useCallback(() => {
       if (!postRef.current) {
          return;
       }
@@ -33,16 +33,15 @@ export default function PostSection() {
          setIsFetching(true);
          setPostsListLength();
       }
-   };
-   
-   useEffect(() => {
+   }, [postRef, setIsFetching, setPostsListLength, isFetching]);
 
+   useEffect(() => {
       window.addEventListener("scroll", handleScroll);
       return () => {
          window.removeEventListener("scroll", handleScroll);
       };
    }, [handleScroll]);
-   
+
    useEffect(() => {
       const fetchInitialPosts = async () => {
          try {
@@ -53,13 +52,6 @@ export default function PostSection() {
       };
       fetchInitialPosts();
    }, []);
-
-
-   // useEffect(() => {
-   //    if(store.isPostCreated !== null) {
-   //       setListLen((listLen) => listLen + 1);
-   //    }
-   // }, [store]);
 
    useEffect(() => {
       if (isFetching) {
@@ -72,8 +64,7 @@ export default function PostSection() {
          ref={postRef}
          className="shrink flex flex-col space-y-4 px-8 w-[680px]"
       >
-         <TopOfHome />
-         <CreateContent />
+         {children}
          {store.posts.slice(0, store.postsLen).map((post, index) => (
             <UserContent key={index} post={post} index={index} />
          ))}

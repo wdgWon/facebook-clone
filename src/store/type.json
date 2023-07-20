@@ -12,5 +12,7 @@
    "POST_LIKE": "like",
    "AUTHENTICATION_DENY": "authentication_deny",
    "POST_CREATE": "create_post",
-   "SET_POSTLISTS_LENGTH": "set_postlist_length"
+   "SET_POSTLISTS_LENGTH": "set_postlist_length",
+   "GET_FRIEND_REQUESTS_LIST": "get_request_list",
+   "ACCEPT_FRIEND_REQUEST": "accept_friend_request"
 }

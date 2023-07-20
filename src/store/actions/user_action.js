@@ -39,7 +39,7 @@ export default function userAction() {
             const res = await axios.put(api.MY_PROFILES_URL, updatedPorfile);
             const updated = res.date;
             console.log("프로필 업데이트 성공");
-            return { profile: updated }
+            return { profile: updated };
          } catch (err) {
             alert("프로필 업데이트 중 문제가 발생했습니다.");
             throw err;
@@ -65,6 +65,33 @@ export default function userAction() {
 
          try {
             await axios.post(api.SIGNUP_URL, registerInfo);
+         } catch (err) {
+            console.error(err);
+            throw err;
+         }
+      },
+      [actionType.GET_FRIEND_REQUESTS_LIST]: async () => {
+         console.log("user_action.js/GET_FRIEND_REQUESTS_LIST");
+
+         try {
+            const res = await axios.get(api.FRIEND_REQUESTS_LIST_URL);
+            const newFriendRequests = res.data;
+            console.dir(newFriendRequests);
+            return { friendRequests: newFriendRequests };
+         } catch (err) {
+            console.error(err);
+            throw err;
+         }
+      },
+      [actionType.ACCEPT_FRIEND_REQUEST]: async (_, payload) => {
+         console.log("user_action.js/ACCEPT_FRIEND_REQUEST");
+
+         const ACCEPT_URL = api.ACCEPT_FRIEND_URL.replace("{id}", payload.id)
+
+         try {
+            const res = await axios.get(ACCEPT_URL);
+            const newFriend = res.data;
+            console.dir(newFriend);
          } catch (err) {
             console.error(err);
             throw err;

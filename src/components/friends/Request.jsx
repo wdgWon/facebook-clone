@@ -1,17 +1,27 @@
-// import { useState } from "react";
-// import axios from "axios";
-// import api from "../../../config/api.json";
-import { useOutletContext, useParams, useNavigate, Outlet } from "react-router-dom";
+import { useOutletContext, useNavigate, Outlet, useSearchParams, Link, useLocation } from "react-router-dom";
 import DefaultProfile from "./DefaultProfile";
+import { useStore } from "../../store/store";
+import profile_image from "../../img/profile_img5.png"
+import actionType from "../../store/type.json"
 
-const RequestCard = ({ src, name }) => {
+const RequestCard = ({ src, profile, acceptRequest }) => {
+  const location = useLocation();
+
+  const handleOnClickToAccept = (e) => {
+    // if(e.target !== e.currentTarget) return;
+    console.log(profile.sender_id);
+    acceptRequest(profile.id);
+  }
+
   return (
-    <div className="flex p-2 space-x-2 items-center cursor-pointer rounded-md hover:bg-gray-100">
+    <Link to={`${location.pathname}/profile?id=${profile.sender_id}`}
+     className="flex p-2 space-x-2 items-center cursor-pointer rounded-md hover:bg-gray-100">
       <img src={src} className="w-14 h-14 rounded-full inline-block" />
-      <span className="text-black font-bold text-sm basis-full">{name}</span>
+      <span className="text-black font-bold text-sm basis-full">{profile.sender_name}</span>
       <button
         type="button"
         className="flex justify-center items-center px-5 py-[6px] rounded-md bg-[#1b74e4] hover:bg-[#1666c7]"
+        onClick={handleOnClickToAccept}
       >
         <span className="inline-block shrink-0 font-black text-white">
           확인
@@ -25,32 +35,28 @@ const RequestCard = ({ src, name }) => {
           삭제
         </span>
       </button>
-    </div>
+    </Link>
   );
 };
 
-// const ConfirmFriendRequest = ({ handleConfirm }) => {
-//   const [friendsRequest, setFriendsRequest] = useState([]);
-//   const [checkButton, setCheckButton] = useState(true);
-
-//   const handleConfirm = async () => {
-//     const URL = api.FRIENDS_UPDATE;
-//     try {
-//       const response = await axios.get(URL);
-//       const newFriend = response.data.name;
-//       const updateList = [...friendsRequest, newFriend];
-//       setFriendsRequest(updateList);
-//       setCheckButton(false);
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-// };
-
-export default function Request({ handleConfirm }) {
+export default function Request() {
   const navigate = useNavigate();
   const context = useOutletContext();
-  const { id } = useParams();
+  const dispatch = useStore(true)[1];
+  const requests = useStore(true)[0].friendRequests;
+  const searchParam = useSearchParams()[0];
+
+  const acceptRequest = async (id) => {
+    const body = {
+      id: id
+    }
+    try {
+      await dispatch(actionType.ACCEPT_FRIEND_REQUEST, body)
+    }
+    catch(err) {
+      console.error(err);
+    }
+  }
 
   return (
     <>
@@ -73,19 +79,19 @@ export default function Request({ handleConfirm }) {
             </button>
             <h1
               className="inline-block text-black font-semibold text-2xl pl-4"
-              //   onClick={handleConfirm}
             >
               친구 요청
             </h1>
           </div>
           <section role="list" className="flex flex-col space-y-2 w-full p-2">
-            <span className="inline-block p-2 text-black font-semibold text-lg">{`친구 요청 ${context.dummyRequests.length}개`}</span>
+            <span className="inline-block p-2 text-black font-semibold text-lg">{`친구 요청 ${requests.length}개`}</span>
             <div className="flex space-y-2 flex-col w-full">
-              {context.dummyRequests.map((request) => (
+              {requests.map((request) => (
                 <RequestCard
                   key={request.id}
-                  src={request.profile_image}
-                  name={request.name}
+                  profile={request}
+                  src={profile_image}
+                  acceptRequest={acceptRequest}
                 />
               ))}
             </div>
@@ -93,7 +99,7 @@ export default function Request({ handleConfirm }) {
         </div>
       </aside>
       <main role="request profile" className="flex flex-col basis-3/4 p-10">
-        { id ? <Outlet /> : <DefaultProfile /> }
+        { searchParam.get("id") ? <Outlet /> : <DefaultProfile /> }
       </main>
     </>
   );
