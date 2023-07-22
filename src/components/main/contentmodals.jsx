@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import { useState, Fragment } from "react";
 import profile_img from "../../img/profile_img5.png";
 import picture from "../../img/pictures.png";
 import maps from "../../img/maps.png";

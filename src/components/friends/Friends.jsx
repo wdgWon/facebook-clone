@@ -1,7 +1,7 @@
 // import { useStore } from "../../store/store";
 
 import { useEffect, useState } from "react";
-import { Outlet, useOutletContext } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useStore } from "../../store/store";
 import { GET_DISPLAY_HEIGHT, GET_FRIEND_REQUESTS_LIST } from "../../store/type.json";
 

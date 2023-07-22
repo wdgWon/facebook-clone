@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import rootRouter from "./router/Router";
@@ -10,6 +10,6 @@ setActions();
 // ux 고려한 화면 스크롤
 document.body.style.overflow = "hidden scroll";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-   <RouterProvider router={rootRouter} />
-);
+// React 17버전 이후 root 렌더링 방식
+const root = createRoot(document.getElementById("root"));
+root.render(<RouterProvider router={rootRouter} />);
