@@ -89,9 +89,8 @@ export default function List() {
             <SearchFriend />
           </div>
           <section role="list" className="flex flex-col space-y-2 w-full p-2">
-            <span className="inline-block p-2 text-black/80 font-bold text-lg">{`친구 ${store.profile.friends.length}명`}</span>
+            <span className="inline-block p-2 text-black/80 font-bold text-lg">{`친구 ${Object.keys(store.profile.friends).length}명`}</span>
             <div className="flex space-y-2 flex-col w-full">
-              {/* [{"4": "젠테"}, ["6", "블루"]] */}
               {Object.entries(store.profile.friends)
                 .map(([id, name]) => ({ id: id, name: name }))
                 .map((friend, index) => (

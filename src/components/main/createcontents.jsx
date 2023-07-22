@@ -1,4 +1,3 @@
-import React from "react";
 import profile_img5 from "../../img/profile_img5.png";
 import Modals from "./contentmodals";
 import { Link } from "react-router-dom";

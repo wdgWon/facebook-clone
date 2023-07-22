@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import { useState, Fragment } from "react";
 import profile_img from "../../img/profile_img5.png";
 import picture from "../../img/pictures.png";
 import maps from "../../img/maps.png";
@@ -7,8 +7,10 @@ import emoticon from "../../img/emoticon.png";
 import threemark from "../../img/threemark.png";
 import { useStore } from "../../store/store";
 import actionType from "../../store/type.json";
+import { useOutletContext } from "react-router-dom";
 
 const Modals = () => {
+   const profile = useOutletContext();
    const [store, dispatch] = useStore(true);
    const [isOpen, setIsOpen] = useState(false);
    const [content, setContent] = useState("");
@@ -42,7 +44,11 @@ const Modals = () => {
             onClick={openModal}
             className="basis-full flex justify-start items-center p-2 bg-neutral-200/70 rounded-full cursor-pointer hover:brightness-[95%]"
          >
-            <span className="text-base text-[#65676b]">{`${store.user?.name}님, 무슨 생각을 하고 계신가요?`}</span>
+            <span className="text-base text-[#65676b]">
+               {(profile?.profile_user_name && profile?.profile_user_name !== store.user?.name)
+                  ? `${profile.profile_user_name}님에게 글을 남겨보세요...`
+                  : `${store.user?.name}님, 무슨 생각을 하고 계신가요?`}
+            </span>
          </button>
 
          {isOpen && (

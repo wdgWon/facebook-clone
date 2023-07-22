@@ -4,6 +4,8 @@ import PostSection from "./PostSection";
 import SideNav from "./SideNav";
 import { GET_DISPLAY_HEIGHT } from "../../store/type.json";
 import { useState } from "react";
+import TopOfHome from "./TopOfHome";
+import CreateContent from "./createcontents";
 
 const MainPage = () => {
    const [getHeight, setHeight] = useState({});
@@ -26,7 +28,10 @@ const MainPage = () => {
             role="main"
             className="relative basis-2/4 flex justify-center"
          >
-            <PostSection />
+            <PostSection>
+               <TopOfHome />
+               <CreateContent />
+            </PostSection>
          </article>
          <aside
             style={{ top: top, height: height }}

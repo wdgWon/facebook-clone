@@ -2,16 +2,17 @@
   "SIGNUP_URL": "/api/register/",
   "LOGIN_URL": "/api/login/",
   "LOGOUT_URL": "/api/logout/",
-  "FRIENDS_REQUEST_URL": "/api/profiles/friends/",
-  "MY_PROFILES_URL": "/api/mypage/",
   "AUTHENTICATION_URL": "/api/user/",
   "REFRESH_TOKEN_URL": "/api/token/refresh/",
+  "MY_PROFILES_URL": "/api/mypage/",
   "PROFILES_URL": "/api/profiles/",
+  "SEND_FRIEND_REQUEST_URL": "/api/profiles/{id}/friend_request/",
   "PROFILES_RETRIEVE_URL": "/api/profiles/{id}/",
+  "ACCEPT_FRIEND_URL": "/api/friends/{id}/accept-friend-request/",
+  "FRIEND_REQUESTS_LIST_URL": "/api/friends/",
+  "DELETE_FRIEND_REQUEST_URL": "/api/friends/{id}/",
   "POST_URL": "/api/post/",
+  "POST_RETRIEVE_URL": "/api/post/{id}/",
   "REPLY_URL": "/api/reply/",
-  "LIKE_URL": "/api/post/{id}/like/",
-  "GET_FRIEND_PROFILE_URL": "/api/profiles/{id}/friend_request/",
-  "FRIENDS_UPDATE": "/api/friends/",
-  "POST_RETRIEVE_URL": "/api/post/{id}/"
+  "LIKE_URL": "/api/post/{id}/like/"
 }

@@ -1,12 +1,9 @@
 // import { useStore } from "../../store/store";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { useStore } from "../../store/store";
-import { GET_DISPLAY_HEIGHT } from "../../store/type.json";
-// import Home from "./Home";
-// import Request from "./Request";
-// import List from "./List";
+import { GET_DISPLAY_HEIGHT, GET_FRIEND_REQUESTS_LIST } from "../../store/type.json";
 
 export const dummyFriends = [
    {
@@ -71,14 +68,31 @@ export const dummyRequests = [
 export default function Friends() {
    const dispatch = useStore(false)[1];
    const [getHeight, setHeight] = useState({});
+   const [loading, setLoading] = useState(true);
    dispatch(GET_DISPLAY_HEIGHT, setHeight);
+
+   useEffect(() => {
+      const getRequests = async () => {
+         try {
+            await dispatch(GET_FRIEND_REQUESTS_LIST);
+            console.log("친구 요청 목록 저장");
+            setLoading(false);
+         } catch(err) {
+            console.error(err);
+            setLoading(false);
+         }
+      }
+      getRequests();
+   }, [])
+
+   if(loading) return;
 
    return (
       <div
          role="friends"
          className="relative w-screen flex min-h-fit bg-[#eeeeee]"
       >
-         <Outlet context={{ getHeight, dummyFriends, dummyRequests }} />
+         <Outlet context={{ getHeight }} />
       </div>
    );
 }

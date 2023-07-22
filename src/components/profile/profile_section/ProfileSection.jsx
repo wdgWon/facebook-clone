@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Modal from "../Modal";
 import HobbyModal from "../HobbyModal";
 import FriendSection from "./FriendSection";
 import PhotosSection from "./PhotosSection";
 import IntroductionSection from "./IntroductionSection";
-import WritePost from "./WritePost";
+// import WritePost from "./WritePost";
 import PostSection from "./PostSection";
+import MainPostSection from "../../main/PostSection";
+import CreateContent from "../../main/createcontents";
 // import { useSearchParams } from "react-router-dom";
 // import { useStore } from "../../../store/store";
 
@@ -53,8 +55,10 @@ const ProfileSection = () => {
                <FriendSection />
             </div>
             <div className="mr-[20px] ">
-               <WritePost />
-               <PostSection />
+               <MainPostSection>
+                  <CreateContent />
+                  <PostSection />
+               </MainPostSection>
             </div>
          </section>
       </div>
