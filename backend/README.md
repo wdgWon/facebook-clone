@@ -25,7 +25,8 @@
 
 - 서버 실행
     ```
-    python3 config/manage.py runserver
+    nohup python3 manage.py runserver 0.0.0.0
+:8000 &
     ```
 
 
