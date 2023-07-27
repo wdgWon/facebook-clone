@@ -8,15 +8,14 @@ export const useStore = (shouldListen = true) => {
    const setState = useState(globalState)[1];
 
    const dispatch = async (actionIdentifier, payload) => {
-      try {
+      // try {
          const newState = await actions[actionIdentifier](globalState, payload);
          globalState = { ...globalState, ...(newState || []) };
-   
+
          listeners.forEach((listener) => listener(globalState));
-      }
-      catch(err) {
-         throw err;
-      }
+      // } catch (err) {
+      //    throw err;
+      // }
    };
 
    useEffect(() => {

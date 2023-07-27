@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Signup from "../signup/Signup";
 import { useStore } from "../../store/store";
-import { USER_LOGIN, GET_PROFILE } from "../../store/type.json";
+import actionType from "../../store/type.json";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -24,9 +24,17 @@ export default function Login() {
    const handleSubmit = async (event) => {
       event.preventDefault();
 
+      const getProfile = async () => {
+         try {
+            await dispatch(actionType.GET_PROFILE);
+            console.log("프로필 로드 성공");
+         } catch (err) {
+            console.error(err);
+         }
+      };
       try {
-         await dispatch(USER_LOGIN, formData);
-         await dispatch(GET_PROFILE);
+         await dispatch(actionType.USER_LOGIN, formData);
+         await getProfile();
       } catch (err) {
          console.error(err);
       }

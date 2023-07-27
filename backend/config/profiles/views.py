@@ -5,6 +5,7 @@ from .serializers import (
     FriendSerializer,
     UserProfileSerializer,
     UserProfileSearchSerializer,
+    MyPageSerializer,
 )
 from rest_framework import viewsets, status
 from django.shortcuts import get_object_or_404
@@ -132,7 +133,7 @@ class MyPageView(RetrieveUpdateAPIView):
 
     model = UserProfile
     queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
+    serializer_class = MyPageSerializer
 
     def get_object(self):
         """유저 프로필이 없을시 빈 값으로 프로필 생성 후 접근"""

@@ -58,7 +58,7 @@ def time_since_created(created_at):
 
     if hours == 0:
         return "방금 전"
-    # elif hours > 24:
-    #     return created_at.date()
+    elif hours > 24:
+        return created_at.date()
     else:
         return f"{hours}시간 전"

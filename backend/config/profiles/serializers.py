@@ -8,12 +8,14 @@ class FriendSerializer(serializers.ModelSerializer):
         source="receiver.name", read_only=True
     )
     sender_name = serializers.StringRelatedField(source="sender.name", read_only=True)
+    sender_id = serializers.StringRelatedField(source="sender.id", read_only=True)
     when_request = serializers.SerializerMethodField()
 
     class Meta:
         model = FriendRequest
         fields = [
             "id",
+            "sender_id",
             "sender_name",
             "receiver_name",
             "is_accepted",
@@ -63,6 +65,16 @@ class UserProfileSerializer(serializers.ModelSerializer):
         """친구 목록 딕셔너리 형태에서 리스트 형태로 언패킹"""
         friends_list = {friend.profile_user.id: friend.profile_user.name for friend in obj.friends.all()}
         return friends_list
+
+
+class MyPageSerializer(UserProfileSerializer):
+    profile_user_id = serializers.StringRelatedField(
+        source="profile_user.id", read_only=True
+    )
+
+    class Meta(UserProfileSerializer.Meta):
+        add_field = ["profile_user_id"]
+        fields = UserProfileSerializer.Meta.fields + add_field
 
 
 class UserProfileSearchSerializer(serializers.ModelSerializer):

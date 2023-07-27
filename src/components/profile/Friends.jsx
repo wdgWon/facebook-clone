@@ -1,36 +1,39 @@
 import { useState } from "react";
+import { useStore } from "../../store/store";
+import { Link, useOutletContext, useSearchParams } from "react-router-dom";
 
-const friends = [
-  {
-    id: 49,
-    name: "Ellen Haynes",
-    profileImage: "https://www.hanalube.com/common/img/default_profile.png",
-  },
-  {
-    id: 45,
-    name: "Agnes Lawrence",
-    profileImage: "https://www.hanalube.com/common/img/default_profile.png",
-  },
-  {
-    id: 99,
-    name: "Adrian Schultz",
-    profileImage: "https://www.hanalube.com/common/img/default_profile.png",
-  },
-  {
-    id: 48,
-    name: "Roger Townsend",
-    profileImage: "https://www.hanalube.com/common/img/default_profile.png",
-  },
-  {
-    id: 12,
-    name: "Lucinda Klein",
-    profileImage: "https://www.hanalube.com/common/img/default_profile.png",
-  },
-];
+// const friends = [
+//   {
+//     id: 49,
+//     name: "Ellen Haynes",
+//     profileImage: "https://www.hanalube.com/common/img/default_profile.png",
+//   },
+//   {
+//     id: 45,
+//     name: "Agnes Lawrence",
+//     profileImage: "https://www.hanalube.com/common/img/default_profile.png",
+//   },
+//   {
+//     id: 99,
+//     name: "Adrian Schultz",
+//     profileImage: "https://www.hanalube.com/common/img/default_profile.png",
+//   },
+//   {
+//     id: 48,
+//     name: "Roger Townsend",
+//     profileImage: "https://www.hanalube.com/common/img/default_profile.png",
+//   },
+//   {
+//     id: 12,
+//     name: "Lucinda Klein",
+//     profileImage: "https://www.hanalube.com/common/img/default_profile.png",
+//   },
+// ];
 
-const FriendItem = ({ name, profileImage }) => {
+const FriendItem = ({ id, name, profileImage }) => {
+
   return (
-    <div className="flex items-center space-x-2 border border-gray-100 rounded p-4">
+    <Link to={`/profile?id=${id}`} className="flex items-center space-x-2 border border-gray-100 rounded p-4">
       <img
         className="w-20 h-20 rounded-md shadow-md cursor-pointer transition-transform duration-300 transform-gpu hover:scale-105"
         src={profileImage}
@@ -45,12 +48,14 @@ const FriendItem = ({ name, profileImage }) => {
       >
         …
       </button>
-    </div>
+    </Link>
   );
 };
 
 const Friends = () => {
   const [searchValue, setSearchValue] = useState("");
+  // const store = useStore(false)[0];
+  const friends = useOutletContext().friends;
 
   return (
     <div className="min-w-screen min-h-screen p-4 bg-gray-200">
@@ -85,11 +90,12 @@ const Friends = () => {
           </button>
         </header>
         <div className="mt-4 grid grid-cols-2 gap-1">
-          {friends.map((friend) => (
+          {Object.entries(friends).map(([id, name]) => (
             <FriendItem
-              key={friend.id}
-              name={friend.name}
-              profileImage={friend.profileImage}
+              key={id}
+              id={id}
+              name={name}
+              profileImage={"https://www.hanalube.com/common/img/default_profile.png"}
             />
           ))}
         </div>

@@ -1,6 +1,6 @@
 export default function DefaultProfile() {
    return (
-      <div className="flex flex-col space-y-4 items-center justify-center w-full h-full">
+      <div className="select-none flex flex-col space-y-4 items-center justify-center w-full h-full">
          <img
             className="inline-block"
             height="112"
