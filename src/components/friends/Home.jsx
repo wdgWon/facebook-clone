@@ -1,5 +1,8 @@
 import { Fragment } from "react";
-import { NavLink, useOutletContext } from "react-router-dom";
+import { Link, NavLink, useNavigate, useOutletContext } from "react-router-dom";
+import { useStore } from "../../store/store";
+import profile_image from "../../img/profile_img5.png";
+import actionType from "../../store/type.json";
 
 const HomeButton = ({ isActive }) => {
    return (
@@ -104,27 +107,67 @@ const ListButton = ({ isActive }) => {
    );
 };
 
-const ProfileCard = ({ src, name }) => {
+const ProfileCard = ({ src, request, handleOnNavigateTo }) => {
+   const dispatch = useStore(true)[1];
+   const URL = `/profile?id=${request.sender_id}`;
+
+   const handleOnClickToAccept = async (e) => {
+      e.stopPropagation();
+
+      const CONFIRM_MESSAGE = `${request.sender_name}님의 요청을 수락하시겠습니까?`;
+      const isConfirm = confirm(CONFIRM_MESSAGE);
+
+      if (isConfirm) {
+         const body = {
+            id: request.id,
+         };
+         try {
+            await dispatch(actionType.ACCEPT_FRIEND_REQUEST, body);
+            await dispatch(actionType.GET_FRIEND_REQUESTS_LIST);
+         } catch (err) {
+            console.error(err);
+         }
+      }
+   };
+
+   const handleOnClickToDelete = async (e) => {
+      e.stopPropagation();
+
+      const CONFIRM_MESSAGE = `친구 요청을 삭제합니다.`;
+      const isConfirm = confirm(CONFIRM_MESSAGE);
+
+      if (isConfirm) {
+         const body = {
+            id: request.id,
+         };
+
+         await dispatch(actionType.DELETE_FRIEND_REQUEST, body);
+      }
+   };
+
    return (
       <div className="flex flex-col m-[5px] rounded-md shadow shadow-black/30 overflow-hidden w-[225px] h-[377px]">
          <img
             src={src}
             alt="Profile Picture"
-            className="inline-block basis-3/5"
+            className="inline-block basis-3/5 cursor-pointer"
+            onClick={(e) => handleOnNavigateTo(e, URL)}
          />
          <div className="flex flex-col h-full space-y-2 p-4">
             <span className="flex-1 text-black font-semibold inline-block">
-               {name}
+               {request.sender_name}
             </span>
             <button
                type="button"
                className="flex flex-1 items-center justify-center w-full text-white font-semibold bg-[#1b74e4] rounded-md shadow-sm cursor-pointer hover:bg-[#135bb3]"
+               onClick={handleOnClickToAccept}
             >
                확인
             </button>
             <button
                type="button"
                className="flex flex-1 items-center justify-center w-full text-black font-semibold bg-[#e4e6eb] rounded-md shadow-sm cursor-pointer hover:bg-[#c0c1c6]"
+               onClick={handleOnClickToDelete}
             >
                삭제
             </button>
@@ -133,42 +176,57 @@ const ProfileCard = ({ src, name }) => {
    );
 };
 
-const FriendCard = ({ src, name }) => {
+const FriendCard = ({ src, id, name, handleOnNavigateTo }) => {
+   const URL = `/profile?id=${id}`;
+
    return (
       <div className="flex flex-col m-[5px] rounded-md shadow shadow-black/30 overflow-hidden w-[225px] h-[377px]">
          <img
             src={src}
             alt="Profile Picture"
-            className="inline-block basis-3/5"
+            className="inline-block basis-3/5 cursor-pointer"
+            onClick={(e) => handleOnNavigateTo(e, URL)}
          />
          <div className="flex flex-col h-full space-y-2 p-4">
             <span className="flex-1 text-black font-semibold inline-block">
                {name}
             </span>
-            <button
-               type="button"
+            <Link
+               to={`/profile?id=${id}`}
                className="flex flex-1 items-center justify-center w-full text-white font-semibold bg-[#1b74e4] rounded-md shadow-sm cursor-pointer hover:bg-[#135bb3]"
             >
                프로필
-            </button>
-            <button
-               type="button"
-               className="flex flex-1 items-center justify-center w-full text-black font-semibold bg-[#e4e6eb] rounded-md shadow-sm cursor-pointer hover:bg-[#c0c1c6]"
-            >
+            </Link>
+            <Link className="flex flex-1 items-center justify-center w-full text-black font-semibold bg-[#e4e6eb] rounded-md shadow-sm cursor-pointer hover:bg-[#c0c1c6]">
                친구 삭제
-            </button>
+            </Link>
          </div>
       </div>
    );
 };
 
-const SectionCard = ({title}) => {
+const SectionCard = ({ title, handleOnNavigateTo }) => {
+   const URL = (() => {
+      switch (title) {
+         case "친구 요청":
+            return "/friends/requests";
+         case "친구 목록":
+            return "/friends/list";
+         default:
+            return "/";
+      }
+   })();
+
    return (
       <div className="flex items-center">
          <h1 className="text-black font-semibold text-xl basis-full">
             {title}
          </h1>
-         <button type="button" className="text-[#216fdb] min-w-fit">
+         <button
+            type="button"
+            className="text-[#216fdb] min-w-fit"
+            onClick={(e) => handleOnNavigateTo(e, URL)}
+         >
             모두 보기
          </button>
       </div>
@@ -177,11 +235,24 @@ const SectionCard = ({title}) => {
 
 export default function Home() {
    const context = useOutletContext();
+   const store = useStore(true)[0];
+   const friends = Object.entries(store.profile.friends);
+   const navigate = useNavigate();
+
+   const handleOnNavigateTo = (e, url) => {
+      if (e.target === e.currentTarget) {
+         navigate(url);
+         console.dir(e);
+      }
+   };
 
    return (
       <Fragment>
          <aside
-            style={{ top: context.getHeight.top, height: context.getHeight.height }}
+            style={{
+               top: context.getHeight.top,
+               height: context.getHeight.height,
+            }}
             className="sticky bg-white pt-4 flex flex-col basis-1/4 shadow-md shadow-black/30 scrollbar overflow-hidden hover:overflow-y-auto"
          >
             <div role="friends navigation" className="flex w-full items-center">
@@ -211,19 +282,26 @@ export default function Home() {
                </NavLink>
             </div>
          </aside>
-         <main role="friends main" className="flex flex-col basis-3/4 p-10 -mt-4">
+         <main
+            role="friends main"
+            className="flex flex-col basis-3/4 p-10 -mt-4"
+         >
             <section
                role="request"
                className="flex flex-col space-y-4 min-h-fit w-full py-4"
             >
-                <SectionCard title={"친구 요청"} />
+               <SectionCard
+                  title={"친구 요청"}
+                  handleOnNavigateTo={handleOnNavigateTo}
+               />
                <div className="flex flex-wrap">
-                  {context.dummyRequests.map((request) => {
+                  {store.friendRequests.map((request) => {
                      return (
                         <ProfileCard
                            key={request.id}
-                           src={request.profile_image}
-                           name={request.name}
+                           request={request}
+                           src={profile_image}
+                           handleOnNavigateTo={handleOnNavigateTo}
                         />
                      );
                   })}
@@ -234,14 +312,19 @@ export default function Home() {
                role="friends list"
                className="flex flex-col space-y-4 min-h-fit w-full py-4"
             >
-               <SectionCard title={"친구 목록"} />
+               <SectionCard
+                  title={"친구 목록"}
+                  handleOnNavigateTo={handleOnNavigateTo}
+               />
                <div className="flex flex-wrap">
-                  {context.dummyFriends.map((request) => {
+                  {friends.map(([id, name]) => {
                      return (
                         <FriendCard
-                           key={request.id}
-                           src={request.profile_image}
-                           name={request.name}
+                           key={id}
+                           id={id}
+                           src={profile_image}
+                           name={name}
+                           handleOnNavigateTo={handleOnNavigateTo}
                         />
                      );
                   })}

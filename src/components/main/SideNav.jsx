@@ -18,8 +18,10 @@ const SideNavCard = ({ url, children }) => {
 };
 
 const Profile = ({name}) => {
+   const store = useStore(false)[0];
+
    return (
-      <SideNavCard url={PROFILE_URL}>
+      <SideNavCard url={`${PROFILE_URL}?id=${store.profile?.profile_user_id}`}>
          <img
             alt="프로필 사진"
             src={profile_img}
@@ -91,7 +93,7 @@ export default function SideNav() {
    const state = useStore(false)[0];
    return (
       <>
-         <Profile name={state.user.name}/>
+         <Profile name={state.user?.name}/>
          <Friends />
          <Fid />
          <Event />

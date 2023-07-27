@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PROFILES_URL } from "../../config/api.json";
+import { PROFILES_URL } from "../../api/api.json";
 import { GET_PROFILE } from "../type.json";
 import { initStore } from "../store";
 // 컴포넌트가 아닌 값이나 문자열이라면 임의로 파라미터처럼 바꿀 수 있음 {} = 컬리 브레이스(브라켓)

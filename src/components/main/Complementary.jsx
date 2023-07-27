@@ -1,3 +1,7 @@
+import { useStore } from "../../store/store";
+import profile_image from "../../img/profile_img5.png"
+import { Link } from "react-router-dom";
+
 const dummyFriends = [
    {
       id: 143,
@@ -117,10 +121,10 @@ const Option = () => {
    );
 };
 
-const ContactCard = ({ name, src }) => {
+const ContactCard = ({ id, name, src }) => {
+   
    return (
-      <button
-         type="button"
+      <Link to={`./profile?id=${id}`}
          className="flex w-full p-2 space-x-2 items-center rounded-md opacity-50 hover:bg-gray-200"
       >
          <img
@@ -129,11 +133,14 @@ const ContactCard = ({ name, src }) => {
             className="w-10 h-10 rounded-full"
          />
          <span className="text-black text-base">{name}</span>
-      </button>
+      </Link>
    );
 };
 
 export default function Complementary() {
+   const store = useStore(false)[0];
+   const friends = Object.entries(store.profile.friends);
+
    return (
       <div className="flex flex-col h-fit w-[356px]">
          <div role="advertise" className=""></div>
@@ -148,12 +155,13 @@ export default function Complementary() {
                   <Option />
                </div>
             </div>
-            {dummyFriends.map((contact) => {
+            {friends.map(([id, name]) => {
                return (
                   <ContactCard
-                     key={contact.id}
-                     name={contact.name}
-                     src={contact.profile_image}
+                     key={id}
+                     id={id}
+                     name={name}
+                     src={profile_image}
                   />
                );
             })}

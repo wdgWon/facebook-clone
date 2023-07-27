@@ -7,5 +7,6 @@
    "AUTHENTICATION_URL" : "/api/user/",
    "REFRESH_TOKEN_URL" : "/api/token/refresh/",
    "PROFILES_URL" : "/api/profiles/",
-   "SEARCH_URL" : "/api/search/"
+   "SEARCH_URL" : "/api/search/",
+   "GET_FRIEND_PROFILE_URL": "/api/profiles/{id}/friend_request/"
 }

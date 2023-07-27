@@ -1,12 +1,12 @@
 import axios from "axios";
-import { AUTHENTICATION_URL, REFRESH_TOKEN_URL } from "../../config/api.json";
-import { AUTHENTICATION_ACCESS, AUTHENTICATION_REFRESH } from "../type.json";
+import { AUTHENTICATION_URL, REFRESH_TOKEN_URL } from "../../api/api.json";
+import actionType from "../type.json";
 import Cookies from "js-cookie";
 import { initStore } from "../store";
 
 export default async function authentication() {
    const actions = {
-      [AUTHENTICATION_ACCESS]: async () => {
+      [actionType.AUTHENTICATION_ACCESS]: async () => {
          console.log("AUTHENTICATION_ACCESS");
 
          try {
@@ -21,26 +21,30 @@ export default async function authentication() {
             throw err;
          }
       },
-      [AUTHENTICATION_REFRESH]: async (store) => {
+      [actionType.AUTHENTICATION_REFRESH]: async () => {
          console.log("AUTHENTICATION_REFRESH");
 
          try {
             // refresh 토큰으로 재발급
             const refreshToken = Cookies.get("refresh_token");
-            const newAccessToken = await axios.post(REFRESH_TOKEN_URL, {
+            // const newAccessToken = 
+            await axios.post(REFRESH_TOKEN_URL, {
                refresh: refreshToken,
             });
-            Cookies.set(
-               "access_token",
-               newAccessToken.data.access,
-               newAccessToken.data.access_expiration
-            );
+            // Cookies.set(
+            //    "access_token",
+            //    newAccessToken.data.access,
+            //    newAccessToken.data.access_expiration
+            // );
             console.log("토큰 재발급");
          } catch (err) {
             console.log("토큰 재발급 실패");
             throw err;
          }
       },
+      [actionType.AUTHENTICATION_DENY]: () => {
+         return { auth: false }
+      }
    };
 
    initStore(actions);

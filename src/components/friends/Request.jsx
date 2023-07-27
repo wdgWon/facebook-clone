@@ -1,14 +1,61 @@
-import { useOutletContext, useNavigate } from "react-router-dom";
+import {
+   useOutletContext,
+   useNavigate,
+   Outlet,
+   useSearchParams,
+   useLocation,
+} from "react-router-dom";
 import DefaultProfile from "./DefaultProfile";
+import { useStore } from "../../store/store";
+import profile_image from "../../img/profile_img5.png";
+import actionType from "../../store/type.json";
 
-const RequestCard = ({ src, name }) => {
+const RequestCard = ({ src, profile, acceptRequest, deleteRequest }) => {
+   const location = useLocation();
+   const navToProfile = useNavigate();
+
+   const handleOnClickToAccept = (e) => {
+      e.stopPropagation();
+
+      const CONFIRM_MESSAGE = `${profile.sender_name}님의 요청을 수락하시겠습니까?`;
+      const isConfirm = confirm(CONFIRM_MESSAGE);
+
+      if (isConfirm === true) {
+         acceptRequest(profile.id);
+      }
+   };
+
+   const handleOnClickToDelete = (e) => {
+      e.stopPropagation();
+
+      const CONFIRM_MESSAGE = `요청을 삭제합니다.`;
+      const isConfirm = confirm(CONFIRM_MESSAGE);
+
+      if (isConfirm) {
+         deleteRequest(profile.id);
+      }
+   };
+
+   const handleOnClickToNavigate = (e) => {
+      if (e.target === e.currentTarget) {
+         navToProfile(`${location.pathname}/profile?id=${profile.sender_id}`);
+      }
+   };
+
    return (
       <div className="flex p-2 space-x-2 items-center cursor-pointer rounded-md hover:bg-gray-100">
-         <img src={src} className="w-14 h-14 rounded-full inline-block" />
-         <span className="text-black font-bold text-sm basis-full">{name}</span>
+         <img
+            onClick={handleOnClickToNavigate}
+            src={src}
+            className="w-14 h-14 rounded-full inline-block"
+         />
+         <span className="text-black font-bold text-sm basis-full">
+            {profile.sender_name}
+         </span>
          <button
             type="button"
             className="flex justify-center items-center px-5 py-[6px] rounded-md bg-[#1b74e4] hover:bg-[#1666c7]"
+            onClick={handleOnClickToAccept}
          >
             <span className="inline-block shrink-0 font-black text-white">
                확인
@@ -17,6 +64,7 @@ const RequestCard = ({ src, name }) => {
          <button
             type="button"
             className="flex justify-center items-center px-5 py-[6px] rounded-md bg-[#e4e6eb] hover:bg-[#cfd0d5]"
+            onClick={handleOnClickToDelete}
          >
             <span className="inline-block shrink-0 font-black text-black">
                삭제
@@ -27,13 +75,37 @@ const RequestCard = ({ src, name }) => {
 };
 
 export default function Request() {
-   const context = useOutletContext();
    const navigate = useNavigate();
+   const context = useOutletContext();
+   const [requests, dispatch] = useStore(true);
+   const searchParam = useSearchParams()[0];
+
+   const acceptRequest = async (id) => {
+      const body = {
+         id: id,
+      };
+      try {
+         await dispatch(actionType.ACCEPT_FRIEND_REQUEST, body);
+         await dispatch(actionType.GET_FRIEND_REQUESTS_LIST);
+      } catch (err) {
+         console.error(err);
+      }
+   };
+
+   const deleteRequest = async (id) => {
+      const body = {
+         id: id,
+      };
+      await dispatch(actionType.DELETE_FRIEND_REQUEST, body);
+   };
 
    return (
       <>
          <aside
-            style={{ top: context.getHeight.top, height: context.getHeight.height }}
+            style={{
+               top: context.getHeight.top,
+               height: context.getHeight.height,
+            }}
             className="sticky bg-white pt-4 flex flex-col basis-1/4 shadow-md shadow-black/30 scrollbar overflow-hidden hover:overflow-y-auto"
          >
             <div
@@ -60,13 +132,15 @@ export default function Request() {
                   role="list"
                   className="flex flex-col space-y-2 w-full p-2"
                >
-                  <span className="inline-block p-2 text-black font-semibold text-lg">{`친구 요청 ${context.dummyRequests.length}개`}</span>
+                  <span className="inline-block p-2 text-black font-semibold text-lg">{`친구 요청 ${requests.friendRequests.length}개`}</span>
                   <div className="flex space-y-2 flex-col w-full">
-                     {context.dummyRequests.map((request) => (
+                     {requests.friendRequests.map((request) => (
                         <RequestCard
                            key={request.id}
-                           src={request.profile_image}
-                           name={request.name}
+                           profile={request}
+                           src={profile_image}
+                           acceptRequest={acceptRequest}
+                           deleteRequest={deleteRequest}
                         />
                      ))}
                   </div>
@@ -74,7 +148,7 @@ export default function Request() {
             </div>
          </aside>
          <main role="request profile" className="flex flex-col basis-3/4 p-10">
-            <DefaultProfile />
+            {searchParam.get("id") ? <Outlet /> : <DefaultProfile />}
          </main>
       </>
    );

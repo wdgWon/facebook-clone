@@ -5,5 +5,15 @@
    "GET_PROFILE": "profile",
    "GET_DISPLAY_HEIGHT": "display_height",
    "PUT_PROFILE": "profile_update",
-   "USER_LOGOUT": "logout"
+   "USER_LOGOUT": "logout",
+   "REGISTER_SIGNUP": "signup",
+   "LOAD_POSTS": "get_post",
+   "UPLOAD_REPLY": "upload_reply",
+   "POST_LIKE": "like",
+   "AUTHENTICATION_DENY": "authentication_deny",
+   "POST_CREATE": "create_post",
+   "SET_POSTLISTS_LENGTH": "set_postlist_length",
+   "GET_FRIEND_REQUESTS_LIST": "get_request_list",
+   "ACCEPT_FRIEND_REQUEST": "accept_friend_request",
+   "DELETE_FRIEND_REQUEST": "delete_friend_request"
 }

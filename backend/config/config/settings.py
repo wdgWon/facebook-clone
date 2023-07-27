@@ -30,8 +30,8 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 
-# Application definition
 
+# Application definition
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -95,8 +95,8 @@ REST_AUTH_SERIALIZERS = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1), # hours = 1
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1), # days = 1
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": False,

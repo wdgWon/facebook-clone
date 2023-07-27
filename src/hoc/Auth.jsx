@@ -1,11 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useStore } from "../store/store";
-import {
-   AUTHENTICATION_ACCESS,
-   AUTHENTICATION_REFRESH,
-   GET_PROFILE,
-} from "../store/type.json";
+import actionType from "../store/type.json";
 
 export default function Auth({ option = true, admin = null, children }) {
    const [store, dispatch] = useStore(false);
@@ -18,15 +14,15 @@ export default function Auth({ option = true, admin = null, children }) {
 
          try {
             try {
-               await dispatch(AUTHENTICATION_ACCESS);
+               await dispatch(actionType.AUTHENTICATION_ACCESS);
             } catch (err) {
-               await dispatch(AUTHENTICATION_REFRESH);
-               await dispatch(AUTHENTICATION_ACCESS);
+               await dispatch(actionType.AUTHENTICATION_REFRESH);
+               // await dispatch(actionType.AUTHENTICATION_ACCESS);
             }
 
             setIsAuth(true);
 
-            !store.profile && (await dispatch(GET_PROFILE));
+            !store.profile && (await dispatch(actionType.GET_PROFILE));
 
             if (!option) {
                alert("이미 로그인 되어있습니다.");
@@ -35,6 +31,7 @@ export default function Auth({ option = true, admin = null, children }) {
             console.error(err);
 
             setIsAuth(false);
+            dispatch(actionType.AUTHENTICATION_DENY);
 
             if (option) {
                alert("접속 권한이 없습니다. 로그인을 해주세요.");
