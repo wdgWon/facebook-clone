@@ -33,6 +33,7 @@ const rootRouter = createBrowserRouter(
                   <NavigationBar />
                   <Outlet />
                </Auth>
+
             }
          >
             <Route index element={<MainPage />} />
