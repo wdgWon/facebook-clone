@@ -14,6 +14,7 @@ import About from "../components/profile/About";
 import {default as FriendsHome} from "../components/friends/Home";
 import {default as FriendsRequests} from "../components/friends/Request";
 import {default as FriendsList} from "../components/friends/List";
+import Searchs from "../components/search/SearchPage";
 
 const rootRouter = createBrowserRouter([
    {
@@ -81,6 +82,9 @@ const rootRouter = createBrowserRouter([
                   element: <FriendsList />,
                },
             ],
+         },
+         { path:"/search",
+            element: <Searchs/>,
          },
       ],
    },
