@@ -123,16 +123,17 @@ const Searchs = () => {
                     className="flex flex-col m-auto space-y-4 w-[600px] py-4"
                 >
                     <div className="flex flex-col items-center  bg-gray-300">
-                        
-                        {DummyData.map((a,i) => (
-                            return(
-                            <ProfileCard profiles={DummyData}>
-                                key={DummyData.id}
-                                title={DummyData.name}
-                                img={profile_img5.png}
-                            </ProfileCard>  
-                                )
-                        ))}
+                        {DummyData.map((a, i) => {
+                            return (
+                                <div>
+                                    <ProfileCard profiles={DummyData}>
+                                        key={DummyData.id}
+                                        title={DummyData.name}
+                                        img={profile_img5.png}
+                                    </ProfileCard>
+                                </div>
+                            );
+                        })}
                     </div>
                     <SectionCard />
                 </section>
