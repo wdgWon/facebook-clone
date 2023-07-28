@@ -1,14 +1,20 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Search() {
     const [searchValue, setSearchValue] = useState("");
+    const searchRef = useRef(null);
+    const { name } = useParams()
 
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate("/search");
+
+        if (!searchValue) return searchRef.current.blur();
+        navigate(`/search?name=${searchValue}`);
+        setSearchValue("");
+        console.log(name);
     };
 
     return (
@@ -41,6 +47,7 @@ export default function Search() {
                 </svg>
             </span>
             <input
+                ref={searchRef}
                 type="text"
                 placeholder="Facebook 검색"
                 value={searchValue}

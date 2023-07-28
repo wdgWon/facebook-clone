@@ -3,7 +3,7 @@ import { PROFILES_URL } from "../../api/api.json";
 import { PUT_PROFILE } from "../type.json";
 import { initStore } from "../store";
 
-export default function updateProfile() {
+export default function () {
   const actions = {
     [PUT_PROFILE]: async (currentState, newState) => {
       let body = {

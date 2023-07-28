@@ -36,7 +36,7 @@ const rootRouter = createBrowserRouter(
             }
          >
             <Route index element={<MainPage />} />
-            <Route path="/search" element={<Searchs />} />
+            <Route path="search" element={<Searchs />} />
             <Route path="profile" element={<ProfilePage />}>
                <Route index element={<ProfileSection />} />
                <Route path="post" element={<ProfileSection />} />

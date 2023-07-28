@@ -135,6 +135,36 @@ export default function userAction() {
             console.error(err);
          }
       },
+      [actionType.GET_SEARCH_LIST]: async () => {
+         console.log("user_action.js/GET_SEARCH_LIST");
+
+         try {
+            const res = await axios.get(api.SEARCH_URL);
+            const newSearchList = res.data;
+            console.log("검색 목록:", newSearchList);
+
+            return {
+               searchList: newSearchList,
+            };
+         } catch (err) {
+            console.error(err);
+         }
+      },
+      [actionType.SEND_FRIEND_REQUEST]: async (_, payload) => {
+         console.log("user_action.js/SEND_FRIEND_REQUEST");
+
+         const SEND_REQUEST_URL = api.SEND_FRIEND_REQUEST_URL.replace(
+            "{id}",
+            payload.id
+         );
+
+         try {
+            const res = await axios.get(SEND_REQUEST_URL);
+            console.log("요청 성공: ", res.data);
+         } catch (err) {
+            console.error(err);
+         }
+      },
    };
 
    initStore(actions);

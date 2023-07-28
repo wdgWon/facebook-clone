@@ -15,5 +15,7 @@
    "SET_POSTLISTS_LENGTH": "set_postlist_length",
    "GET_FRIEND_REQUESTS_LIST": "get_request_list",
    "ACCEPT_FRIEND_REQUEST": "accept_friend_request",
-   "DELETE_FRIEND_REQUEST": "delete_friend_request"
+   "DELETE_FRIEND_REQUEST": "delete_friend_request",
+   "SEND_FRIEND_REQUEST": "sen_friend_request",
+   "GET_SEARCH_LIST": "get_search_list"
 }

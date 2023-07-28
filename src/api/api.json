@@ -14,5 +14,6 @@
   "POST_URL": "/api/post/",
   "POST_RETRIEVE_URL": "/api/post/{id}/",
   "REPLY_URL": "/api/reply/",
-  "LIKE_URL": "/api/post/{id}/like/"
+  "LIKE_URL": "/api/post/{id}/like/",
+  "SEARCH_URL": "/api/search/"
 }
